@@ -8,6 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Wallet">
 <meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <title>Wallet</title>
 <style>
   :root {
@@ -494,18 +497,10 @@
   $('balance').addEventListener('dblclick', openSheet);
   if (/^#(settings|ustawienia)$/.test(location.hash)) openSheet();
 
-  // ikona na ekran główny (rysowana w locie)
-  try {
-    var c = document.createElement('canvas'); c.width = c.height = 180;
-    var g = c.getContext('2d');
-    g.fillStyle = '#ab9ff2'; g.fillRect(0, 0, 180, 180);
-    g.fillStyle = '#121212';
-    g.beginPath(); g.arc(90, 90, 46, 0, Math.PI * 2); g.fill();
-    g.fillStyle = '#ab9ff2'; g.font = 'bold 54px -apple-system, Arial, sans-serif';
-    g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('$', 90, 93);
-    var l = document.createElement('link'); l.rel = 'apple-touch-icon'; l.href = c.toDataURL('image/png');
-    document.head.appendChild(l);
-  } catch (e) {}
+  // tryb offline / instalacja na ekranie głównym
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
 
   init(); render();
 })();
