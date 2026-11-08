@@ -1,0 +1,12 @@
+{
+ "recordedAt": "2026-11-08T22:19:29.631Z",
+ "note": "Real responses from GeckoTerminal, DexScreener, RugCheck and Jupiter recorded by scripts/record-fixtures.ts",
+ "rugcheck": {
+  "pass": "FUppVamcF2np57H2fDeDgRK6eCrhBzUcr8YaECjQpump",
+  "top10": "BrAMN5NQdDBvxsRht75gPJoybkBhtxc964tdkuqWpump",
+  "bundled": "Hm6oB55fQvgT5wnq5KKKqLE6sweimNTeyQvDkDNVpump",
+  "lpLocked": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "devHolding": "GAHurYcsKYZ7srApNPPfFeQxzKdyRTbRhKJwqt5Lpump",
+  "mintAuthority": "8A4yC54FvnQSDHtVmKDqEtUDHPeWyBx679WczNNczGnt"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "token": {
+  "address": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "name": "Pussycoin",
+  "symbol": "PUSSY"
+ },
+ "response": {
+  "swapType": "aggregator",
+  "inAmount": "4885360299",
+  "outAmount": "98005531",
+  "otherAmountThreshold": "98005531",
+  "swapMode": "ExactIn",
+  "slippageBps": 0,
+  "priceImpactPct": "-0.02174442332977229",
+  "routePlan": [
+   {
+    "percent": 100,
+    "bps": 10000,
+    "usdValue": 8.485126531318478,
+    "swapInfo": {
+     "ammKey": "9ptmRtadjn3knyB4LhW6H83SJZdtGEro29CtxGcw5pv2",
+     "label": "Raydium CLMM",
+     "inputMint": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+     "outputMint": "So11111111111111111111111111111111111111112",
+     "inAmount": "4885360299",
+     "outAmount": "98103634"
+    }
+   }
+  ],
+  "feeMint": "So11111111111111111111111111111111111111112",
+  "feeBps": 10,
+  "platformFee": {
+   "feeBps": 10,
+   "feeMint": "So11111111111111111111111111111111111111112"
+  },
+  "signatureFeeLamports": 0,
+  "signatureFeePayer": null,
+  "prioritizationFeeLamports": 0,
+  "prioritizationFeePayer": null,
+  "rentFeeLamports": 0,
+  "rentFeePayer": null,
+  "transaction": null,
+  "gasless": false,
+  "jitOptimized": false,
+  "taker": null,
+  "inputMint": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "outputMint": "So11111111111111111111111111111111111111112",
+  "router": "metis",
+  "guaranteedPrice": false,
+  "requestId": "01a1bd3e-c365-70fa-babb-a144c6925129",
+  "inUsdValue": 8.673731828036217,
+  "outUsdValue": 8.485126531318478,
+  "swapUsdValue": 8.485126531318478,
+  "priceImpact": -2.1744423329772293,
+  "mode": "ultra",
+  "totalTime": 102
+ }
+}

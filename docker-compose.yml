@@ -1,0 +1,39 @@
+# VPS: bot + Caddy (automatyczny HTTPS z Let's Encrypt).
+#   1. ustaw rekord DNS A domeny na IP serwera
+#   2. cp .env.example .env  i uzupełnij DASHBOARD_PASSWORD oraz DOMAIN
+#   3. docker compose up -d --build
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      PORT: "8080"
+      DB_PATH: /data/grokbot.db
+      RECORD_DIR: /data/recordings
+    volumes:
+      - botdata:/data
+    expose:
+      - "8080"
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - bot
+
+volumes:
+  botdata:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,590 @@
+[
+ {
+  "url": "https://dexscreener.com/solana/fuppvamcf2np57h2fdedgrk6ecrhbzucr8yaecjqpump",
+  "chainId": "solana",
+  "tokenAddress": "FUppVamcF2np57H2fDeDgRK6eCrhBzUcr8YaECjQpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/ghvUCASSzC10mUak?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/3kd5tm2lImv8yWRz?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/FUppVamcF2np57H2fDeDgRK6eCrhBzUcr8YaECjQpump?timestamp=1794176100000",
+  "description": "Maybe Trump will pay the US debt back with Bitcoin.",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/esotericpigeon/status/2119552506011291958?a=38BQSQep5bv0WIJsL_Y&s=20"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/hlaszrgp4mkzedraektjvr2uhsokypxrs7auuymg3xdx",
+  "chainId": "solana",
+  "tokenAddress": "HLaSzRgp4mkZeDrAEKTJvr2UhSokYPxRS7auuYmg3xDX",
+  "icon": "https://cdn.dexscreener.com/cms/images/CSlcMDD-DcTBbByl?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/rvZ-oS7GLrEWiIAZ?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/HLaSzRgp4mkZeDrAEKTJvr2UhSokYPxRS7auuYmg3xDX?timestamp=1794176100000",
+  "description": "",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://raydium.io/launchpad/token/?mint=9oZUCgQ4bs1RtDVf8mKXosDbA6LTbw25cmQVxXtfLoat"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/cryptorover/status/2119552039483322534"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/bramn5nqddbvxsrht75gpjoybkbhtxc964tdkuqwpump",
+  "chainId": "solana",
+  "tokenAddress": "BrAMN5NQdDBvxsRht75gPJoybkBhtxc964tdkuqWpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/Vn_XXhBbHlHyjYmW?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/UomrtefFrJjsczNE?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/BrAMN5NQdDBvxsRht75gPJoybkBhtxc964tdkuqWpump?timestamp=1794176100000",
+  "description": "Earn stocks, pre-ipo, and yield.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://indexfun.cash/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/indexdotcash"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/aey4dgzgammgka49n1fy47snixdwpmw2r9e2bbeqpump",
+  "chainId": "solana",
+  "tokenAddress": "AEy4dgZGAMmGkA49N1Fy47SNiXDWPmw2r9e2BbEQpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/LGoI5U9KH7c2f1yo?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/ElMcQ4BDHbcPTb8-?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/AEy4dgZGAMmGkA49N1Fy47SNiXDWPmw2r9e2BbEQpump?timestamp=1794176100000",
+  "description": "Take the pill. Go deeper.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://thepill.fun/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/ThePill_Fun"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0x52d3473135334ecaab569de7cd50580ff9ea3c3f",
+  "chainId": "elysium",
+  "tokenAddress": "0x52D3473135334ecAAb569DE7CD50580FF9EA3c3F",
+  "icon": "https://cdn.dexscreener.com/cms/images/TfEoo4yywmGEZvGX?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/0sz3omB9wHBEhQbj?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0x52d3473135334ecaab569de7cd50580ff9ea3c3f?timestamp=1794176100000",
+  "description": "Cats are liquid.",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/LiquidCatCoin"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/4dxxwjtgpvbrfdvcb6sg3wggbxxbhsvxkat5zs9tpump",
+  "chainId": "solana",
+  "tokenAddress": "4DXxwJTgPvBRFDVCb6Sg3wggbxXBHsvXKat5ZS9Tpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/Zd2uuR22PBe6RgVy?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/qZYXHViT3pIf58Al?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/4DXxwJTgPvBRFDVCb6Sg3wggbxXBHsvXKat5ZS9Tpump?timestamp=1794176100000",
+  "description": "Perps for every Elysium asset,memecoins, stocks & AI tokens\nPerps powered by Solana. Pay in SOL or USDC.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://www.perpsium.fun/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/PerpSium"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0xd11345b5953100b70d4b2a93d33d8cb8d41e0e8f",
+  "chainId": "elysium",
+  "tokenAddress": "0xD11345b5953100b70D4B2a93D33D8cb8D41e0e8F",
+  "icon": "https://cdn.dexscreener.com/cms/images/MgcIHRDYB89192xQ?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/uqkKP83yP8dAqVt0?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0xd11345b5953100b70d4b2a93d33d8cb8d41e0e8f?timestamp=1794176100000",
+  "description": "The privacy layer for perps on Elysium. Deposit, get a fresh account funded from a shared pool, and trade Hyperliquid perps with nothing linking it back to your wallet.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://umbraperps.xyz/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/umbraperps"
+   },
+   {
+    "type": "telegram",
+    "url": "https://t.me/umbraperps"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0xa5680a78573955038d85c088e582e165ba93f935",
+  "chainId": "elysium",
+  "tokenAddress": "0xa5680A78573955038D85C088E582e165ba93f935",
+  "icon": "https://cdn.dexscreener.com/cms/images/WjmGnF3a9R7Yio6P?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/OOYbWGZ5nX4aUzwp?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0xa5680a78573955038d85c088e582e165ba93f935?timestamp=1794176100000",
+  "description": "The fastest terminal on Elysium. Secured by AWS KMS.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://zelos.fun"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/zeloselysium"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/dxuchqjngglnw8kkibzekp7grhyhf9ni1aegyvqypump",
+  "chainId": "solana",
+  "tokenAddress": "DXucHQjnGGLnW8kkiBZEKp7gRhYHF9ni1aegyvqypump",
+  "icon": "https://cdn.dexscreener.com/cms/images/vnuCDOKMb_87wMS4?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/FN_UOs1Vi1b4SXEl?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/DXucHQjnGGLnW8kkiBZEKp7gRhYHF9ni1aegyvqypump?timestamp=1794176100000",
+  "description": "",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://x.com/DAlphaD0106/status/2119324128385872050"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/esotericpigeon/status/2119549039704244580?a=uiPGSb7wG6OZhiOVSgM&s=20"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0xd662d66ec991a3eae4ecbda34327264c53d4cf38",
+  "chainId": "elysium",
+  "tokenAddress": "0xd662D66eC991A3eae4EcBdA34327264c53d4cF38",
+  "icon": "https://cdn.dexscreener.com/cms/images/LARdJpgMh38-Okdt?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/s0KXzBpNiUHNXWu7?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0xd662d66ec991a3eae4ecbda34327264c53d4cf38?timestamp=1794176100000",
+  "description": "Before Hyperliquid, there was Chameleon. The desk that built the house.",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/ChameleonHL_"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0x3dcfe5deae9fa7bdfbf35543d6d31b38e97b757a",
+  "chainId": "elysium",
+  "tokenAddress": "0x3DCFe5DEAE9fa7BdFbf35543D6d31b38E97b757A",
+  "icon": "https://cdn.dexscreener.com/cms/images/QS50T33t7NHmQ7RE?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/4z8OfvnaNh4wCoiY?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0x3dcfe5deae9fa7bdfbf35543d6d31b38e97b757a?timestamp=1794176100000",
+  "description": "FEMO — Finding Early Meme Opportunities. \n\nThe first community-powered launchpad and meme discovery platform on Elysium. \n\nLaunch memes. Discover gems. Build your family. Be early.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://Femo.family"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/Femofamily"
+   },
+   {
+    "type": "telegram",
+    "url": "https://t.me/femodotfamily"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/9x2aeirswngedgdtdmw3fcph6gvcp3crquj8mffkpump",
+  "chainId": "solana",
+  "tokenAddress": "9x2AEiRsWNGeDgDTdmW3fCPh6GVcP3cRQUJ8mffkpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/pVXNH66BCmapqqKy?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/eDPwE0TG6rp20mHO?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/9x2AEiRsWNGeDgDTdmW3fCPh6GVcP3cRQUJ8mffkpump?timestamp=1794176100000",
+  "description": "This is Pat. Pat has been on hold, waiting for GTA VI, since September 17, 2013. Meme coin for fun. No utility, no promises, not financial advice. Not affiliated with Rockstar Games or Take-Two.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://still-waiting.pages.dev/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/datuna_memecoin"
+   },
+   {
+    "type": "telegram",
+    "url": "https://t.me/still_waiting_pat"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0x32193afd14c53f12c45a4c04eca9f7ba98e3ec71",
+  "chainId": "elysium",
+  "tokenAddress": "0x32193Afd14c53f12c45A4c04ECA9F7Ba98e3ec71",
+  "icon": "https://cdn.dexscreener.com/cms/images/NYO9W7px4C1IEsi3?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/e7tz-a6Gqjs2g6zc?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0x32193afd14c53f12c45a4c04eca9f7ba98e3ec71?timestamp=1794176100000",
+  "description": "The cat accelerates.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://eaccat.com/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/e_accat"
+   }
+  ],
+  "cto": false,
+  "updatedAt": "2026-11-08T22:00:25.038Z"
+ },
+ {
+  "url": "https://dexscreener.com/solana/5bsybprazim6spxqk9bqnsbxmgelfpgcagnmtxb4pump",
+  "chainId": "solana",
+  "tokenAddress": "5bsYbpRazim6sPXQK9bqNsBxmGELFpGCAGNMTxB4pump",
+  "icon": "https://cdn.dexscreener.com/cms/images/sGYO6H_a2dhhCosf?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/xdB7fHgFiUibk_aI?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/5bsYbpRazim6sPXQK9bqNsBxmGELFpGCAGNMTxB4pump?timestamp=1794176100000",
+  "description": "Financially Responsible Pepe didnt jeet on the first red candle. Financially Responsible Pepe held through the bundles and scalps. The green days AND the red. He helped build a daimond handed community from the dirt. Be smart. Be like Financially Responsible Pepe",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/jay112790/status/2119540771158401258?a=WZV8EwlrEFkmkBr78Wk&s=19"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/bsc/0x5ac9886b8629d38094a6cae7cf9879b40ceb7777",
+  "chainId": "bsc",
+  "tokenAddress": "0x5Ac9886B8629d38094A6CAe7CF9879b40CEB7777",
+  "icon": "https://cdn.dexscreener.com/cms/images/07yHzstcL2VfFgGG?width=64&height=64&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/bsc/0x5ac9886b8629d38094a6cae7cf9879b40ceb7777?timestamp=1794176100000",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://fruitflybnb.lol/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/4lyfe186905/status/2119532838273810837"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/fdzunstuyhkysqrit8jj1pkfrwbsyrnwhkv5dv9upump",
+  "chainId": "solana",
+  "tokenAddress": "FDZUnsTuyHKYSqriT8JJ1PKFRwbsYRNWhkV5DV9upump",
+  "icon": "https://cdn.dexscreener.com/cms/images/mGQwNH4-TkDT8E_j?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/GJK4ER3qwEy18Ppy?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/FDZUnsTuyHKYSqriT8JJ1PKFRwbsYRNWhkV5DV9upump?timestamp=1794176100000",
+  "description": "Gooner Pussy Unit ($GPU) powers Solana with lime-green anime energy, GPU-fueled chaos, and an overclocked appetite for memes.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://goonerpussy.online"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/goonerpussyunit"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/hm6ob55fqvgt5wnq5kkkqle6sweimnteyqvdkdnvpump",
+  "chainId": "solana",
+  "tokenAddress": "Hm6oB55fQvgT5wnq5KKKqLE6sweimNTeyQvDkDNVpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/l7oLmDMVy35XgC4S?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/Mv1O6Oyl7IjjwiFi?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/Hm6oB55fQvgT5wnq5KKKqLE6sweimNTeyQvDkDNVpump?timestamp=1794176100000",
+  "description": "",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://x.com/DAlphaD0106/status/2119324128385872050"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/ripedevonchain/status/2119543247420678477"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0x5cf58da30b62aca1c7a735a680279fbedaa7189c",
+  "chainId": "elysium",
+  "tokenAddress": "0x5CF58da30B62ACA1c7a735a680279FBedaA7189C",
+  "icon": "https://cdn.dexscreener.com/cms/images/DfLJE0pH95muG1sc?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/_CwwX8Rhbuz-6jGv?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0x5cf58da30b62aca1c7a735a680279fbedaa7189c?timestamp=1794176100000",
+  "description": "Permissionless synthetic assets launchpad on Elysium. It has a price? Light it.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://www.openember.pro/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/OpenEmberApp"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/9honpvxb9t5rambxnfiwshhunyzmptxj1phvk8b9pump",
+  "chainId": "solana",
+  "tokenAddress": "9honpvxB9T5RAMBXNfiwShHuNYzmptXj1PhVk8B9pump",
+  "icon": "https://cdn.dexscreener.com/cms/images/dMt1dKMcuYJfHAtv?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/TWqBXEoXu0D_s6d9?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/9honpvxB9T5RAMBXNfiwShHuNYzmptXj1PhVk8B9pump?timestamp=1794176100000",
+  "description": "Airdropped 10% to Ansem\n\nPaired to $ANSEM 🐂🀄️",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://blackcalf.baby"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/blackcalfsol"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0x236feecd909ff562e775318c77781f4946c33b3b",
+  "chainId": "elysium",
+  "tokenAddress": "0x236FeEcD909FF562E775318c77781f4946c33b3b",
+  "icon": "https://cdn.dexscreener.com/cms/images/ZbLwMeGObDxLNXaH?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/as_IUw863g5rmHek?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0x236feecd909ff562e775318c77781f4946c33b3b?timestamp=1794176100000",
+  "description": "Big Balls.\nBigger HYPE",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/testicles_hype?s=11"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0xb7126d3be7c594b0ad3dc68eed791082a18cc589",
+  "chainId": "elysium",
+  "tokenAddress": "0xb7126d3be7C594b0ad3DC68EED791082A18Cc589",
+  "icon": "https://cdn.dexscreener.com/cms/images/z3sB7kdGaYvwQU78?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/pPGJ1-vOHkqygPKI?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0xb7126d3be7c594b0ad3dc68eed791082a18cc589?timestamp=1794176100000",
+  "description": "The Elysian, the blue gigachad guardian of Elysium, launched on Volta. \n2% fee to buyback and burn.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://theelysian.xyz/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/theelysian_chad"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/bkygs8bjzoc7zgptaimqaed8kq31rvtsegbhdptbpump",
+  "chainId": "solana",
+  "tokenAddress": "BkYGs8BJzoc7ZgptAiMqAed8KQ31rVTsegBHdPTbpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/Zj8yXxvqAUwZyjPJ?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/UjSJSEZBEB6crQZr?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/BkYGs8BJzoc7ZgptAiMqAed8KQ31rVTsegBHdPTbpump?timestamp=1794176100000",
+  "description": "Jensen x Alice brings an unlikely internet crossover to Solana as a community-driven meme token.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://senalice.site"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/JensenAliceSol"
+   },
+   {
+    "type": "telegram",
+    "url": "https://t.me/JensenAliceSol"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/8up7npweverjyjsegzrxg6hnrefjey4rhlg16kyypump",
+  "chainId": "solana",
+  "tokenAddress": "8Up7NpwEverjyJSEgZrXG6hnrEfjeY4rHLg16kYypump",
+  "icon": "https://cdn.dexscreener.com/cms/images/sV6e2LwPtn4KCb7K?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/H9NzRnTkGiwp7Z_T?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/8Up7NpwEverjyJSEgZrXG6hnrEfjeY4rHLg16kYypump?timestamp=1794176100000",
+  "description": "PussyCoin",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://www.zerohedge.com/ai/jensen-huang-had-romantic-relationship-alleged-chinese-spy-reports"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/WatcherGuru/status/2119524963644276809"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/arggnm1zk12eyczrybuljecfsmh4dm7hkgxnk97pearn",
+  "chainId": "solana",
+  "tokenAddress": "ARGGnM1zK12eYCzRYbULJECFsMh4DM7hKgxNk97Pearn",
+  "icon": "https://cdn.dexscreener.com/cms/images/jlOi1JitPdzn2YLg?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/_2t9Ov0NuM_Ejy3r?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/ARGGnM1zK12eYCzRYbULJECFsMh4DM7hKgxNk97Pearn?timestamp=1794176100000",
+  "description": "Earn through creator rewards.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://earnrewards.fun/"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/earnonpump"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/elysium/0xeb8bcc0fde0e76d26f1fbcb38bf476c837b92927",
+  "chainId": "elysium",
+  "tokenAddress": "0xEb8bCC0fdE0e76D26F1FBcB38BF476C837b92927",
+  "icon": "https://cdn.dexscreener.com/cms/images/ykKoMgun7vrK-e7U?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/RJWeTHOcRHbbEaQt?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/elysium/0xeb8bcc0fde0e76d26f1fbcb38bf476c837b92927?timestamp=1794176100000",
+  "description": "I am MAXIMUS, scourge of the arena and the beast Rome could not tame. Caesar commanded me to kneel. I licked my paw and allowed him to reconsider. Now I march upon Elysium with nine lives, sharpened steel, and no master. Send forth your champions. I shall make this brief. I sleep sixteen hours a day, and you are delaying me.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://maximuscat.com"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/Maximuscat1813"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/bcmdoklrtmt6jft41tfinq91s52nvyrsgvunnhjnpump",
+  "chainId": "solana",
+  "tokenAddress": "BCMdoKLrTMt6JFT41TFiNQ91s52NvyrsGvUnnhjnpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/tDj93f8lPCmYYuAj?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/96fAi2ETIF7yp6NZ?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/BCMdoKLrTMt6JFT41TFiNQ91s52NvyrsGvUnnhjnpump?timestamp=1794176100000",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/abtcsolana/status/2119538180764336273"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/2cmxtzbt941j3vi9hjxsdkynqxq43jf2j51pyrbdpump",
+  "chainId": "solana",
+  "tokenAddress": "2Cmxtzbt941j3Vi9HjXsDkYNQxQ43jF2j51PYrBdpump",
+  "icon": "https://cdn.dexscreener.com/cms/images/mCqOuC5jSP_ytuda?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/fsRcUW_VRdH6OH0n?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/2Cmxtzbt941j3Vi9HjXsDkYNQxQ43jF2j51PYrBdpump?timestamp=1794176100000",
+  "description": "PumpScope is a Solana token discovery and trading platform that brings market activity, liquidity signals, and project information together for independent research. SCOPE is the PumpScope ecosystem token. A fee waiver for qualifying PumpScope trades by wallets holding at least 3000000 SCOPE is planned and will be confirmed after integration and testing. Crypto is volatile; no token is guaranteed safe or profitable.",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://pumpscope.app"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/pumpscopex?s=11"
+   },
+   {
+    "type": "telegram",
+    "url": "https://t.me/PumpScopegroup"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/5b8lgwj96dedd5hzzdskfsd2bqtqq4pfdqganew9pump",
+  "chainId": "solana",
+  "tokenAddress": "5b8LGwj96DedD5HzzDskfsd2BqTQQ4pFdQganEW9pump",
+  "icon": "https://cdn.dexscreener.com/cms/images/qmqAwTmweQYRHsBB?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/R7Xc8vCbJloeMzfR?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/5b8LGwj96DedD5HzzDskfsd2BqTQQ4pFdQganEW9pump?timestamp=1794176100000",
+  "description": "",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://x.com/nvidihcoin"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/Trencherbill77/status/2119537416394723369"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/6upz2wwedfncsjrcacw2ftzddmkxkigkbzc4ekzepump",
+  "chainId": "solana",
+  "tokenAddress": "6UPZ2WWedfnCSjRCACw2FtzdDMkxkigkbZC4eKzepump",
+  "icon": "https://cdn.dexscreener.com/cms/images/vj8-CcM0YDJwdL7m?width=64&height=64&fit=crop&quality=95&format=auto",
+  "header": "https://cdn.dexscreener.com/cms/images/198e_fW1bikHh4o_?width=600&height=200&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/6UPZ2WWedfnCSjRCACw2FtzdDMkxkigkbZC4eKzepump?timestamp=1794176100000",
+  "description": "",
+  "links": [
+   {
+    "type": "twitter",
+    "url": "https://x.com/hoppyrocketfrog/status/2119537652513038706?a=PSqd9CyphDDUawwJemM&s=20"
+   }
+  ],
+  "cto": false
+ },
+ {
+  "url": "https://dexscreener.com/solana/fzxhlugigchy5uvvoeqh1ekixtrgdn67wubhuc1float",
+  "chainId": "solana",
+  "tokenAddress": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "icon": "https://cdn.dexscreener.com/cms/images/AA4y0zvJFOi66wN6?width=64&height=64&fit=crop&quality=95&format=auto",
+  "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat?timestamp=1794176100000",
+  "links": [
+   {
+    "label": "Website",
+    "url": "https://icoinsol.lol"
+   },
+   {
+    "type": "twitter",
+    "url": "https://x.com/xcv19982/status/2119525061975519623"
+   }
+  ],
+  "cto": false
+ }
+]

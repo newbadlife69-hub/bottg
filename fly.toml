@@ -1,0 +1,37 @@
+# Fly.io – zmień nazwę aplikacji na własną (musi być unikalna) i ewentualnie region.
+app = "grok-bot-zmien-mnie"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+  DB_PATH = "/data/grokbot.db"
+  RECORD_DIR = "/data/recordings"
+  TRADING_MODE = "paper"
+
+# trwały wolumen na SQLite i nagrania: fly volumes create grokbot_data --size 1 --region fra
+[mounts]
+  source = "grokbot_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # bot ma chodzić 24/7 – nie usypiaj maszyny
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "20s"
+    interval = "30s"
+    method = "GET"
+    path = "/api/health"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

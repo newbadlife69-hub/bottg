@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f0e">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grok Bot">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<title>Grok Bot</title>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/inter-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-display:swap;font-weight:100 900;src:url(/fonts/inter-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+  --bg:#0b0f0e; --card:#121816; --card-2:#161d1b; --line:rgba(255,255,255,.055);
+  --text:#ffffff; --muted:#8a929c; --dim:#5f6873;
+  --green:#22e07a; --green-2:#3bea88; --red:#ff5a5f; --red-2:#ff6b6e; --purple:#a78bfa; --blue:#4ea8ff;
+  --amber:#ffb547; --lav:#a19fff; --pink:#d88dff; --teal:#4de8e8;
+  --r:22px;
+  --pad:3px;
+  --font: Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{
+  font-family:var(--font);font-size:12px;line-height:1.25;
+  -webkit-font-smoothing:antialiased;font-feature-settings:'tnum' 1,'cv11' 1;font-variant-numeric:tabular-nums;
+  min-height:100vh;
+  background:
+    radial-gradient(120% 420px at 50% 0,rgba(24,74,72,.16),transparent 70%),
+    var(--bg);
+  padding:calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + var(--pad)) calc(env(safe-area-inset-bottom) + 24px) calc(env(safe-area-inset-left) + var(--pad));
+  overscroll-behavior-y:none;
+}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.g{color:var(--green-2)} .r{color:var(--red-2)} .mut{color:var(--muted)}
+
+/* ---------- header */
+.hdr{display:flex;align-items:center;gap:6px;height:40px}
+.logo{width:36px;height:36px;border-radius:10px;background:#1a1f22;display:grid;place-items:center;flex:none;overflow:hidden}
+.logo svg{width:36px;height:36px;display:block}
+.ttl{flex:1;min-width:0}
+.ttl h1{margin:0;font-size:23.2px;line-height:1;font-weight:800;letter-spacing:-.025em}
+.ttl p{margin:0;font-size:11.25px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.005em}
+.live{display:flex;align-items:center;gap:7px;height:21px;padding:0 11px 0 10px;border-radius:999px;background:#151d25;font-size:12.5px;font-weight:600;flex:none;align-self:flex-start;margin-top:5px;cursor:pointer;border:0}
+.live .dot{width:6px;height:6px;border-radius:50%;background:#44eb86;box-shadow:0 0 0 0 rgba(68,235,134,.6);animation:pulse 1.8s infinite}
+.live.paper .dot{background:#44eb86}
+.live.off .dot{background:var(--red);animation:none}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(68,235,134,.55)}70%{box-shadow:0 0 0 7px rgba(68,235,134,0)}100%{box-shadow:0 0 0 0 rgba(68,235,134,0)}}
+
+/* ---------- ticker */
+.ticker{margin:2px calc(-1 * var(--pad)) 0;overflow:hidden;height:24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.ticker .track{display:flex;width:max-content;animation:marquee var(--dur,40s) linear infinite}
+.ticker:active .track{animation-play-state:paused}
+.tk{display:flex;align-items:center;gap:7px;padding-right:22px;white-space:nowrap;height:24px;text-decoration:none}
+.tk .s{font-weight:700;font-size:12.6px;letter-spacing:.01em}
+.tk .p{color:#5aaeff;font-size:12.6px;font-weight:500}
+.tk .b{font-size:10.8px;font-weight:700;padding:3px 7px;border-radius:5px;background:rgba(34,224,122,.16);color:var(--green-2)}
+.tk .b.neg{background:rgba(255,90,95,.15);color:var(--red-2)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ava{width:16px;height:16px;border-radius:50%;flex:none;object-fit:cover;background:#22303a;display:inline-grid;place-items:center;font-size:8.5px;font-weight:800;color:#fff;overflow:hidden}
+
+/* ---------- equity */
+.eq{position:relative;padding:13px 1px 0 1px}
+.eq-top{display:flex;justify-content:space-between;align-items:center;height:24px}
+.eq-label{font-size:11.9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mult{background:var(--green);color:#03250f;font-weight:800;font-size:14.6px;height:25px;padding:0 10px;border-radius:999px;display:flex;align-items:center;letter-spacing:-.01em;transition:background .4s}
+.mult.neg{background:var(--red);color:#2a0306}
+.eq-main{position:relative;height:49px;display:flex;align-items:flex-end;margin-top:2px}
+.eq-big{margin-left:-2px;font-size:48px;line-height:.86;font-weight:800;letter-spacing:-.07em;display:inline-flex}
+.eq-cents{font-size:23px;font-weight:700;color:#6b737e;margin-left:6px;line-height:1;letter-spacing:-.01em;transform:translateY(1px)}
+.badge{position:absolute;left:233px;top:0;background:var(--green);color:#03250f;font-weight:800;font-size:12.6px;height:18px;padding:0 7px;border-radius:999px;display:flex;align-items:center;opacity:0;transform:scale(.7);transition:opacity .4s,transform .4s cubic-bezier(.2,1.4,.4,1)}
+.badge.show{opacity:1;transform:scale(1)}
+.badge.neg{background:var(--red);color:#2a0306}
+.eq-sub{display:flex;justify-content:space-between;align-items:center;margin-top:13px;height:18px}
+.eq-pnl{font-size:14.7px;font-weight:700;color:var(--green-2);letter-spacing:-.005em}
+.eq-pnl.neg{color:var(--red-2)}
+.wl{font-size:11.6px;color:var(--muted);font-weight:500;margin-right:3px}
+.chart{display:block;width:calc(100% + 2 * var(--pad) + 2px);margin:0 calc(-1 * var(--pad) - 2px) 0 calc(-1 * var(--pad) - 4px);height:64px;overflow:visible}
+
+/* odometer digits */
+.odo{display:inline-block;height:1em;overflow:hidden;line-height:1;vertical-align:bottom}
+.odo>span{display:block;transition:transform .9s cubic-bezier(.2,.9,.25,1)}
+.odo>span>i{display:block;font-style:normal;height:1em;line-height:1}
+.ch{display:inline-block;line-height:1}
+
+/* ---------- cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-top:10px;position:relative;overflow:hidden}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;padding:9px 7px 0 6px;height:30px}
+.card-h .meta.r{color:var(--red-2)}
+.desk{margin-top:3px}
+.card-h h2{margin:0;font-size:16.8px;font-weight:800;letter-spacing:-.02em}
+.card-h .meta{font-size:11.6px;color:var(--muted);font-weight:500}
+.card-h .meta b{font-weight:700}
+
+/* desk rows */
+.rows{padding:3px 3px 8px 2px}
+.row{display:flex;align-items:center;height:31px;border-radius:9px;padding:0 4px 0 2px;position:relative;transition:background .6s}
+.row.hl-scout{background:rgba(78,168,255,.07)}
+.row.hl-filter{background:rgba(255,90,95,.10)}
+.row.hl-analyst{background:rgba(161,159,255,.07)}
+.row.hl-exec{background:rgba(34,224,122,.07)}
+.row.hl-risk{background:rgba(216,141,255,.07)}
+.row.hl-logger{background:rgba(120,170,220,.06)}
+.ic{width:24px;height:24px;border-radius:6.5px;display:grid;place-items:center;flex:none;position:relative}
+.ic svg{width:14px;height:14px}
+.ic.scout{background:linear-gradient(160deg,#a9dbff,#62b2ff)}
+.ic.filter{background:linear-gradient(160deg,#ffc95a,#ffa62e)}
+.ic.analyst{background:linear-gradient(160deg,#b3b1ff,#8e8bff)}
+.ic.exec{background:linear-gradient(160deg,#52f19a,#25d873)}
+.ic.risk{background:linear-gradient(160deg,#e3a3ff,#c978fb)}
+.ic.logger{background:linear-gradient(160deg,#6ff0ef,#33d7dc)}
+.ic .ring{position:absolute;inset:-3px;border-radius:9px;border:1.5px solid transparent;opacity:0;transition:opacity .4s}
+.row.busy .ic .ring{opacity:1;animation:spin 1.2s linear infinite}
+.ic.scout .ring{border-right-color:#4ea8ff}
+.ic.filter .ring{border-top-color:#ffb547}
+.ic.analyst .ring{border-right-color:#a19fff}
+.ic.exec .ring{border-right-color:#22e07a}
+.ic.risk .ring{border-right-color:#d88dff}
+.ic.logger .ring{border-right-color:#4de8e8}
+@keyframes spin{to{transform:rotate(360deg)}}
+.who{width:84px;margin-left:8px;flex:none}
+.who b{display:block;font-size:12.2px;font-weight:700;letter-spacing:-.005em;line-height:1.1}
+.who span{display:block;font-size:9px;color:var(--muted);margin-top:2px;white-space:nowrap}
+.mid{flex:1;min-width:0;display:flex;align-items:center;gap:5px;font-size:11.2px;white-space:nowrap;overflow:hidden}
+.mid .sym{font-weight:700;font-size:12px;color:#fff;overflow:hidden;text-overflow:ellipsis;max-width:92px}
+.mid .sym.dead{color:#7b838e;text-decoration:line-through;text-decoration-thickness:1.5px}
+.mid .sym.gray{color:#8d95a0}
+.mid .why{color:var(--red-2);overflow:hidden;text-overflow:ellipsis}
+.mid .ok{color:var(--green-2)}
+.mid .soft{color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+.mid .ent{display:flex;align-items:center;gap:5px;min-width:0;animation:slidein .45s ease-out}
+.pill{flex:none;height:18px;padding:0 7px;border-radius:999px;font-size:11.6px;font-weight:700;display:flex;align-items:center;margin-left:6px;letter-spacing:-.005em}
+.pill.scout{background:rgba(78,168,255,.18);color:#62b4ff}
+.pill.filter{background:rgba(255,90,95,.18);color:var(--red-2)}
+.pill.analyst{background:rgba(161,159,255,.16);color:var(--lav)}
+.pill.exec{background:rgba(34,224,122,.13);color:var(--green-2)}
+.pill.risk{background:rgba(216,141,255,.15);color:var(--pink)}
+.pill.logger{background:rgba(77,232,232,.13);color:var(--teal)}
+@keyframes slidein{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+
+/* logger */
+.logs{padding:6px 8px 6px 7px;height:80px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,.18) 100%);mask-image:linear-gradient(180deg,#000 72%,rgba(0,0,0,.18) 100%)}
+.lg{display:flex;align-items:center;height:15.2px;font-size:10.6px;white-space:nowrap;overflow:hidden;animation:logIn .5s cubic-bezier(.2,.8,.3,1)}
+.lg .d{width:6px;height:6px;border-radius:50%;flex:none;margin:0 7px 0 1px;background:var(--red)}
+.lg .t{font-family:var(--mono);color:#6d7581;font-size:10.2px;width:39px;flex:none}
+.lg .a{font-weight:700;margin-right:4px}
+.lg .x{font-weight:600}
+.lg .s{font-weight:600;color:#8d95a0;margin:0 3px}
+.lg .s.w{color:#fff;font-weight:700}
+.lg .rest{overflow:hidden;text-overflow:ellipsis}
+.a-FILTER{color:var(--amber)} .a-ANALYST{color:#8f9bff} .a-RISK{color:#c084fc} .a-EXECUTOR{color:var(--green-2)} .a-SCOUT{color:#62b4ff} .a-SYSTEM,.a-LOGGER{color:var(--teal)}
+@keyframes logIn{from{opacity:0;transform:translateY(-8px);max-height:0}to{opacity:1;transform:none;max-height:16px}}
+
+/* killed by rule */
+.kgrid{display:grid;grid-template-columns:1fr 1fr;column-gap:18px;padding:5px 4px 6px 7px}
+.kills .card-h{height:25px;padding-top:8px}
+.kills .card-h h2{font-size:14.6px}
+.kills .card-h .meta{font-size:11px}
+.kr{height:16.2px;position:relative;font-size:9.8px;letter-spacing:-.005em}
+.kr .l{display:flex;justify-content:space-between;align-items:center;height:12px;white-space:nowrap}
+.kr .l span{color:#e6e8eb;overflow:hidden;text-overflow:ellipsis}
+.kr .l b{color:var(--red-2);font-weight:700;margin-left:6px;font-size:10.2px}
+.kr .bar{height:2.6px;border-radius:2px;background:#20262b;margin-top:2.4px;overflow:hidden}
+.kr .bar i{display:block;height:100%;width:0;background:var(--red);border-radius:2px;transition:width .9s cubic-bezier(.2,.9,.25,1)}
+
+/* ---------- tabs & panels */
+.tabs{display:flex;gap:4px;margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;position:sticky;top:calc(env(safe-area-inset-top) + 4px);z-index:5}
+.tabs button{flex:1;border:0;background:transparent;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer}
+.tabs button.on{background:#1f2826;color:#fff}
+.panel{display:none;padding:10px}
+.panel.on{display:block}
+.empty{color:var(--muted);text-align:center;padding:18px 0;font-size:12.5px}
+.pos{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.pos:last-child{border-bottom:0}
+.pos .ava{width:30px;height:30px;font-size:12px;grid-row:span 2}
+.pos .n{font-weight:700;font-size:14px}
+.pos .sub{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pos .pnl{text-align:right;font-weight:800;font-size:14px}
+.pos .act{display:flex;gap:6px;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:#1a2220;border-radius:10px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.btn.sm{padding:4px 9px;font-size:11px;border-radius:8px}
+.btn.red{background:rgba(255,90,95,.14);color:var(--red-2);border-color:rgba(255,90,95,.25)}
+.btn.green{background:var(--green);color:#03250f;border-color:transparent}
+.tr{display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}
+.tr:last-child{border-bottom:0}
+.tr .ava{width:26px;height:26px;font-size:11px;grid-row:span 2}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.st{background:var(--card-2);border-radius:14px;padding:10px 12px}
+.st span{display:block;font-size:11px;color:var(--muted)}
+.st b{display:block;font-size:18px;font-weight:800;margin-top:3px;letter-spacing:-.02em}
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:12px}
+.kv:last-child{border-bottom:0}
+.sect{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin:16px 0 6px;font-weight:700}
+.form{display:grid;grid-template-columns:1fr 112px;gap:8px 10px;align-items:center}
+.form label{font-size:12.5px;color:#d5d9de}
+.form label small{display:block;color:var(--muted);font-size:10.5px}
+.form input,.form select{width:100%;background:#0d1211;border:1px solid #222b29;border-radius:10px;padding:8px 10px;font-size:14px;text-align:right;outline:none}
+.form input:focus{border-color:var(--green)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.full{max-height:420px;overflow:auto}
+.full .lg{animation:none;height:18px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 18px);transform:translateX(-50%) translateY(20px);background:#1d2725;border:1px solid var(--line);padding:10px 14px;border-radius:12px;font-size:12.5px;opacity:0;transition:.3s;z-index:50;pointer-events:none;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.conn{position:fixed;top:calc(env(safe-area-inset-top) + 4px);left:50%;transform:translateX(-50%);background:#3a1f22;color:#ffb4b6;font-size:11px;padding:4px 10px;border-radius:999px;z-index:40;display:none}
+.conn.on{display:block}
+
+/* login */
+.login{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;z-index:100;padding:24px}
+.login[hidden]{display:none}
+.login form{width:100%;max-width:320px;text-align:center}
+.login .logo{width:64px;height:64px;border-radius:18px;margin:0 auto 14px}
+.login .logo svg{width:64px;height:64px}
+.login h1{font-size:26px;margin:0 0 4px;font-weight:800;letter-spacing:-.02em}
+.login p{color:var(--muted);margin:0 0 20px;font-size:13px}
+.login input{width:100%;background:var(--card);border:1px solid #222b29;border-radius:14px;padding:14px;font-size:16px;outline:none;margin-bottom:10px;text-align:center}
+.login button{width:100%;background:var(--green);color:#03250f;border:0;border-radius:14px;padding:14px;font-size:16px;font-weight:800;cursor:pointer}
+.login .err{color:var(--red-2);min-height:18px;margin-top:10px;font-size:13px}
+@media (min-width:600px){body{max-width:460px;margin:0 auto}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="conn" id="conn">łączenie…</div>
+
+<header class="hdr">
+  <div class="logo" aria-hidden="true"><svg viewBox="0 0 100 100"><rect x="4" y="9" width="92" height="82" rx="40" fill="#fff"/><ellipse cx="37" cy="51" rx="7" ry="13" transform="rotate(-35 37 51)" fill="#0b0f0e"/><ellipse cx="60" cy="47" rx="7" ry="13" transform="rotate(-35 60 47)" fill="#0b0f0e"/></svg></div>
+  <div class="ttl">
+    <h1>Grok Bot</h1>
+    <p>Solana memes · strict RM · paper → live</p>
+  </div>
+  <button class="live paper" id="live" title="Tryb"><span class="dot"></span><span id="liveTxt">Paper</span></button>
+</header>
+
+<div class="ticker" id="tickerBox"><div class="track" id="ticker"></div></div>
+
+<section class="eq">
+  <div class="eq-top">
+    <div class="eq-label" id="eqLabel">Equity · $150 at --:-- · 8% max size</div>
+    <div class="mult num" id="mult">1.00×</div>
+  </div>
+  <div class="eq-main">
+    <span class="eq-big num" id="eqInt">$150</span><span class="eq-cents num" id="eqCents">.00</span>
+    <span class="badge num" id="lastBadge">+$0</span>
+  </div>
+  <div class="eq-sub">
+    <span class="eq-pnl num" id="eqPnl">+$0.00 (0%)</span>
+    <span class="wl num" id="wl">0W / 0L</span>
+  </div>
+  <svg class="chart" id="chart" viewBox="0 0 400 64" preserveAspectRatio="none"></svg>
+</section>
+
+<section class="card desk">
+  <div class="card-h"><h2>Desk · 6 agents</h2><span class="meta num" id="deskMeta">0 scanned · <b class="g">0 traded</b></span></div>
+  <div class="rows">
+    <div class="row" id="r-scout">
+      <div class="ic scout"><i class="ring"></i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.3 15.3 20 20"/></svg></div>
+      <div class="who"><b>Scout</b><span>new pairs</span></div>
+      <div class="mid" id="m-scout"><span class="soft">listening…</span></div>
+      <div class="pill scout num" id="p-scout">0 pairs</div>
+    </div>
+    <div class="row" id="r-filter">
+      <div class="ic filter"><i class="ring"></i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M4 5h16l-6.2 7.4V19l-3.6-1.8v-4.8z"/></svg></div>
+      <div class="who"><b>Filter</b><span>8 kill rules</span></div>
+      <div class="mid" id="m-filter"><span class="soft">no kills yet</span></div>
+      <div class="pill filter num" id="p-filter">0 · 0%</div>
+    </div>
+    <div class="row" id="r-analyst">
+      <div class="ic analyst"><i class="ring"></i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3.2 19 6v5.4c0 4.5-3 7.8-7 9.4-4-1.6-7-4.9-7-9.4V6z"/><path d="m8.8 12 2.3 2.3 4.3-4.6"/></svg></div>
+      <div class="who"><b>Analyst</b><span id="c-analyst">score 70+ only</span></div>
+      <div class="mid" id="m-analyst"><span class="soft">waiting for survivors</span></div>
+      <div class="pill analyst num" id="p-analyst">0 scored</div>
+    </div>
+    <div class="row" id="r-exec">
+      <div class="ic exec"><i class="ring"></i><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.6 2.5 5.2 13.4h5.6l-1.3 8.1 8.3-11h-5.6z"/></svg></div>
+      <div class="who"><b>Executor</b><span id="c-exec">8% max size</span></div>
+      <div class="mid" id="m-exec"><span class="soft">no trades yet</span></div>
+      <div class="pill exec num" id="p-exec">size ≤ 8%</div>
+    </div>
+    <div class="row" id="r-risk">
+      <div class="ic risk"><i class="ring"></i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4.2 17a8.5 8.5 0 1 1 15.6 0"/><path d="m12 14 3.6-4.2"/></svg></div>
+      <div class="who"><b>Risk</b><span id="c-risk">−6% stop · trail</span></div>
+      <div class="mid" id="m-risk"><span class="soft">no open risk</span></div>
+      <div class="pill risk num" id="p-risk">−6% · trail +12%</div>
+    </div>
+    <div class="row" id="r-logger">
+      <div class="ic logger"><i class="ring"></i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2.6"/><path d="M9 9h6M9 12.5h6M9 16h3.5"/></svg></div>
+      <div class="who"><b>Logger</b><span>reason for all</span></div>
+      <div class="mid" id="m-logger"><span class="soft">—</span></div>
+      <div class="pill logger num" id="p-logger">0 reasons</div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-h"><h2>Logger</h2><span class="meta r num" style="font-weight:700;font-size:12.3px" id="loggerMeta">0 killed</span></div>
+  <div class="logs" id="logs"></div>
+</section>
+
+<section class="card kills">
+  <div class="card-h"><h2>Killed by rule</h2><span class="meta num" id="bestWorst">best — · worst —</span></div>
+  <div class="kgrid" id="kgrid"></div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button data-t="positions" class="on">Pozycje</button>
+  <button data-t="history">Historia</button>
+  <button data-t="log">Log</button>
+  <button data-t="stats">Statystyki</button>
+  <button data-t="settings">Ustawienia</button>
+</nav>
+
+<section class="card panel on" id="t-positions"><div id="positions"></div></section>
+<section class="card panel" id="t-history"><div id="history"></div></section>
+<section class="card panel" id="t-log"><div class="full" id="fullLog"></div><div class="actions"><button class="btn sm" id="moreLog">Starsze wpisy</button></div></section>
+<section class="card panel" id="t-stats"><div id="stats"></div></section>
+<section class="card panel" id="t-settings">
+  <form id="settingsForm" autocomplete="off"></form>
+  <div class="actions">
+    <button class="btn green" id="saveSettings">Zapisz ustawienia</button>
+    <button class="btn red" id="resetSession">Reset sesji</button>
+  </div>
+  <div class="sect">Tryb LIVE (zaślepka)</div>
+  <div class="mut" id="liveInfo" style="font-size:12px;line-height:1.45"></div>
+  <div class="actions"><button class="btn sm" id="armLive">Uzbrój LIVE</button><button class="btn sm" id="disarmLive">Wyłącz LIVE</button><button class="btn sm" id="logout">Wyloguj</button></div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<div class="login" id="login" hidden>
+  <form id="loginForm">
+    <div class="logo"><svg viewBox="0 0 100 100"><rect x="4" y="9" width="92" height="82" rx="40" fill="#fff"/><ellipse cx="37" cy="51" rx="7" ry="13" transform="rotate(-35 37 51)" fill="#0b0f0e"/><ellipse cx="60" cy="47" rx="7" ry="13" transform="rotate(-35 60 47)" fill="#0b0f0e"/></svg></div>
+    <h1>Grok Bot</h1>
+    <p>Panel chroniony hasłem</p>
+    <input type="password" id="pw" placeholder="Hasło" autocomplete="current-password" required>
+    <button type="submit">Zaloguj</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</div>
+
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const S = { snap: null, logs: [], curve: [], trades: [], es: null, lastMsg: 0, tab: 'positions', flash: {}, oldestLogId: null };
+
+// ---------------------------------------------------------------- formatting
+const fmtInt = (n) => Math.round(n).toLocaleString('en-US');
+const fmtK = (n) => n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : n >= 1e4 ? Math.round(n / 1e3) + 'k' : n >= 1e3 ? (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k' : String(n);
+const sUsd = (v, d = 2) => (v < 0 ? '−' : '+') + '$' + Math.abs(v).toFixed(d);
+const usd = (v, d = 2) => (v < 0 ? '−' : '') + '$' + Math.abs(v).toFixed(d);
+const pct = (v) => { const a = Math.abs(v); return (v < 0 ? '−' : '+') + (a >= 10 ? Math.round(a) : a.toFixed(1)) + '%'; };
+const hhmm = (ts) => { const d = new Date(ts); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+const SUB = '₀₁₂₃₄₅₆₇₈₉';
+function fmtPrice(p) {
+  if (!(p > 0)) return '—';
+  if (p >= 1000) return p.toFixed(0);
+  if (p >= 1) return p.toFixed(p >= 100 ? 2 : 3);
+  const s = p.toFixed(20);
+  const m = /^0\.(0*)(\d{1,4})/.exec(s);
+  const zeros = m ? m[1].length : 0;
+  if (zeros >= 4) return '0.0' + String(zeros).split('').map((d) => SUB[+d]).join('') + m[2].replace(/0+$/, '').slice(0, 3);
+  return p.toFixed(zeros + 3);
+}
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const PALETTE = ['#7cc142', '#4ea8ff', '#ff8a3d', '#a78bfa', '#22c3a6', '#f25f8b', '#e3b341', '#5b8def'];
+function ava(img, sym, cls = '') {
+  const letter = esc((sym || '?').replace('$', '').charAt(0).toUpperCase() || '?');
+  let h = 0; for (const c of sym || '') h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const bg = PALETTE[h % PALETTE.length];
+  const fb = `<span class="ava ${cls}" style="background:${bg}">${letter}</span>`;
+  if (!img) return fb;
+  return `<img class="ava ${cls}" src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=this.dataset.fb" data-fb='${fb.replace(/'/g, '&#39;')}'>`;
+}
+
+// ---------------------------------------------------------------- animated numbers
+const tweens = new Map();
+function tween(el, to, fmt, ms = 700) {
+  const from = tweens.get(el)?.value ?? to;
+  const t0 = performance.now();
+  const st = { value: from, target: to };
+  tweens.set(el, st);
+  if (from === to) { el.textContent = fmt(to); return; }
+  const step = (t) => {
+    if (tweens.get(el) !== st) return;
+    const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3);
+    st.value = from + (to - from) * e;
+    el.textContent = fmt(st.value);
+    if (k < 1) requestAnimationFrame(step); else st.value = to;
+  };
+  requestAnimationFrame(step);
+}
+/** Odometer: each digit is a vertical strip that rolls to its new value. */
+function odometer(el, text) {
+  if (el.dataset.v === text) return;
+  const old = el.dataset.v || '';
+  el.dataset.v = text;
+  const kids = [...el.children];
+  if (kids.length !== text.length || old.length !== text.length) {
+    el.innerHTML = text.split('').map((c) => /\d/.test(c)
+      ? `<span class="odo"><span style="transform:translateY(-${c}em)">${'0123456789'.split('').map((d) => `<i>${d}</i>`).join('')}</span></span>`
+      : `<span class="ch">${esc(c)}</span>`).join('');
+    return;
+  }
+  text.split('').forEach((c, i) => {
+    const k = kids[i];
+    if (/\d/.test(c) && k.classList.contains('odo')) k.firstElementChild.style.transform = `translateY(-${c}em)`;
+    else if (!/\d/.test(c)) k.textContent = c;
+  });
+}
+
+// ---------------------------------------------------------------- rendering
+function renderTicker(items) {
+  const el = $('ticker');
+  const key = items.map((t) => t.mint + fmtPrice(t.priceUsd) + Math.round(t.change)).join('|');
+  if (el.dataset.k === key) return;
+  el.dataset.k = key;
+  if (!items.length) { el.innerHTML = '<span class="tk"><span class="p" style="color:var(--muted)">waiting for market data…</span></span>'; el.style.animation = 'none'; return; }
+  const html = items.map((t) => `<a class="tk" href="https://dexscreener.com/solana/${esc(t.mint)}" target="_blank" rel="noopener">${ava(t.imageUrl, t.symbol)}<span class="s">${esc(t.symbol)}</span><span class="p">${fmtPrice(t.priceUsd)}</span><span class="b ${t.change < 0 ? 'neg' : ''}">${pct(t.change)}</span></a>`).join('');
+  el.innerHTML = html + html;
+  el.style.animation = '';
+  requestAnimationFrame(() => el.style.setProperty('--dur', Math.max(20, el.scrollWidth / 2 / 38) + 's'));
+}
+
+function renderEquity(s) {
+  const eq = s.equity, start = s.session.startEquity || 1;
+  const st = new Date(s.session.startedAt);
+  $('eqLabel').textContent = `Equity · $${start % 1 ? start.toFixed(2) : start} at ${hhmm(st)} · ${s.maxPositionPct}% max size`;
+  const [i, c] = Math.abs(eq).toFixed(2).split('.');
+  odometer($('eqInt'), (eq < 0 ? '−$' : '$') + Number(i).toLocaleString('en-US'));
+  $('eqCents').textContent = '.' + c;
+  const m = eq / start;
+  $('mult').textContent = m.toFixed(2) + '×';
+  $('mult').classList.toggle('neg', m < 1);
+  const pnl = eq - start, p = (pnl / start) * 100;
+  const pe = $('eqPnl');
+  pe.textContent = `${sUsd(pnl)} (${Math.abs(p) >= 10 ? Math.round(p) : p.toFixed(1)}%)`.replace('(-', '(−');
+  pe.classList.toggle('neg', pnl < 0);
+  $('wl').textContent = `${s.counters.wins}W / ${s.counters.losses}L`;
+  const lt = s.counters.lastTrade, b = $('lastBadge');
+  if (lt) { b.textContent = sUsd(lt.pnl, 0); b.classList.add('show'); b.classList.toggle('neg', lt.pnl < 0); } else b.classList.remove('show');
+  // badge sits right after the cents
+  const w = $('eqInt').getBoundingClientRect().width + $('eqCents').getBoundingClientRect().width;
+  b.style.left = Math.max(150, Math.min(w + 66, window.innerWidth - 150)) + 'px';
+}
+
+function smoothPath(pts) {
+  if (pts.length < 2) return '';
+  let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [x0, y0] = pts[i], [x1, y1] = pts[i + 1];
+    const cx = (x0 + x1) / 2;
+    d += ` C${cx.toFixed(1)},${y0.toFixed(1)} ${cx.toFixed(1)},${y1.toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+  }
+  return d;
+}
+function renderChart() {
+  const svg = $('chart');
+  const W = 400, H = 64, bottom = 61;
+  const start = S.snap?.session.startEquity || 150;
+  let c = S.curve.length ? S.curve.slice() : [[Date.now(), start]];
+  if (S.snap) c.push([S.snap.now, S.snap.equity]);
+  if (c.length === 1) c = [[c[0][0] - 1, c[0][1]], c[0]];
+  // bucket to ≤ 60 points so the curve stays smooth
+  const t0 = c[0][0], t1 = c[c.length - 1][0] || t0 + 1, n = Math.min(60, c.length);
+  const buckets = [];
+  for (let i = 0; i < n; i++) buckets.push(null);
+  for (const [t, v] of c) { const k = Math.min(n - 1, Math.floor(((t - t0) / (t1 - t0 || 1)) * n)); buckets[k] = v; }
+  let last = c[0][1];
+  const vals = buckets.map((v) => (v == null ? last : (last = v)));
+  const lo = Math.min(...vals, start), hi = Math.max(...vals, start);
+  const range = hi - lo;
+  // keep the line hugging the bottom like a calm equity curve; big moves still fit
+  const top = hi + Math.max(range * 1.9, start * 0.5), floor = lo - Math.max(range * 0.04, start * 0.004);
+  const y = (v) => bottom - ((v - floor) / (top - floor)) * (bottom - 4);
+  const pts = vals.map((v, i) => [(i / (vals.length - 1)) * (W - 6) + 2, y(v)]);
+  const d = smoothPath(pts);
+  const [ex, ey] = pts[pts.length - 1];
+  const up = vals[vals.length - 1] >= start;
+  const col = up ? '#3fe58a' : '#ff5a5f';
+  const by = y(start).toFixed(1);
+  svg.innerHTML = `
+    <defs>
+      <filter id="glow" x="-10%" y="-80%" width="120%" height="260%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <linearGradient id="fade" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${col}" stop-opacity=".16"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></linearGradient>
+    </defs>
+    <line x1="${(W * 0.42).toFixed(0)}" x2="${W}" y1="${by}" y2="${by}" stroke="rgba(255,255,255,.13)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+    <path d="${d} L${ex.toFixed(1)},${H} L2,${H} Z" fill="url(#fade)" opacity=".55"/>
+    <path d="${d}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linecap="round" filter="url(#glow)" vector-effect="non-scaling-stroke"/>
+  `;
+  // end dot drawn in CSS pixels (not stretched by preserveAspectRatio=none)
+  let dot = svg.parentNode.querySelector('.cdot');
+  if (!dot) { dot = document.createElement('div'); dot.className = 'cdot'; svg.parentNode.appendChild(dot); }
+  const r = svg.getBoundingClientRect(), pr = svg.parentNode.getBoundingClientRect();
+  dot.style.cssText = `position:absolute;width:9px;height:9px;border-radius:50%;background:${col};box-shadow:0 0 10px ${col},0 0 3px ${col};left:${r.left - pr.left + (ex / W) * r.width - 4.5}px;top:${r.top - pr.top + (ey / H) * r.height - 4.5}px;transition:top .6s,left .6s`;
+}
+
+function flash(agent, ms = 4000) { S.flash[agent] = Date.now() + ms; }
+function renderDesk(s) {
+  const c = s.counters, d = s.desk, now = Date.now();
+  $('deskMeta').innerHTML = `${fmtInt(c.scanned)} scanned · <b class="g">${fmtInt(c.traded)} traded</b>`;
+  tween($('p-scout'), c.pairs, (v) => fmtK(Math.round(v)) + ' pairs');
+  tween($('p-filter'), c.killed, (v) => `${fmtInt(v)} · ${Math.round(s.killedPct)}%`);
+  tween($('p-analyst'), c.scored, (v) => `${fmtInt(v)} scored`);
+  tween($('p-logger'), c.reasons, (v) => `${fmtInt(v)} reasons`);
+  $('p-exec').textContent = `size ≤ ${s.maxPositionPct}%`;
+  $('c-exec').textContent = `${s.maxPositionPct}% max size`;
+  $('c-analyst').textContent = `score ${s.minScore}+ only`;
+  $('p-risk').textContent = `−${s.risk.stopLossPct}% · trail +${s.risk.trailActivatePct}%`;
+  $('c-risk').textContent = `−${s.risk.stopLossPct}% stop · trail`;
+
+  setMid('scout', d.scout && d.scout.ts, () => `<span class="ent">${ava(d.scout.imageUrl, d.scout.symbol)}<span class="sym">$${esc(d.scout.symbol)}</span><span class="soft">${esc(d.scout.text)}</span></span>`);
+  setMid('filter', d.filter && d.filter.ts, () => `<span class="ent">${ava(d.filter.imageUrl, d.filter.symbol)}<span class="sym dead">$${esc(d.filter.symbol)}</span><span class="why">× ${esc(d.filter.reason)}</span></span>`);
+  setMid('analyst', d.analyst && d.analyst.ts, () => d.analyst.passed
+    ? `<span class="ent">${ava(d.analyst.imageUrl, d.analyst.symbol)}<span class="sym">$${esc(d.analyst.symbol)}</span><span class="ok">✓ score ${d.analyst.score} ≥ ${d.analyst.min}</span></span>`
+    : `<span class="ent">${ava(d.analyst.imageUrl, d.analyst.symbol)}<span class="sym gray">$${esc(d.analyst.symbol)}</span><span class="why">× score ${d.analyst.score} &lt; ${d.analyst.min}</span></span>`);
+  const lt = c.lastTrade, lb = d.lastBuy;
+  const execKey = (lt ? 't' + lt.ts : '') + (lb ? 'b' + lb.ts : '');
+  setMid('exec', execKey, () => {
+    if (lt && (!lb || lt.ts >= lb.ts)) return `<span class="ent"><span class="soft">last</span><span class="${lt.pnl >= 0 ? 'ok' : 'why'}" style="font-weight:700">${sUsd(lt.pnl, 0)} · $${esc(lt.symbol)}</span></span>`;
+    if (lb) return `<span class="ent"><span class="soft">bought</span><span class="ok" style="font-weight:700">$${esc(lb.symbol)} · ${usd(lb.sizeUsd)}</span></span>`;
+    return `<span class="soft">no trades yet</span>`;
+  });
+  const open = s.positions;
+  const riskKey = open.map((p) => p.id + ':' + p.pnlPct.toFixed(1) + p.trailActive).join(',');
+  setMid('risk', riskKey || 'none', () => {
+    if (!open.length) return `<span class="soft">no open risk</span>`;
+    const p = open.slice().sort((a, b) => a.pnlPct - b.pnlPct)[0];
+    return `<span class="ent" style="animation:none">${open.length > 1 ? `<span class="soft">${open.length} open ·</span>` : ''}<span class="sym">$${esc(p.symbol)}</span><span class="${p.pnlPct >= 0 ? 'ok' : 'why'}">${pct(p.pnlPct)}</span>${p.trailActive ? '<span class="soft">· trailing</span>' : ''}</span>`;
+  }, false);
+  const ll = d.lastLog;
+  setMid('logger', ll && ll.id, () => `<span class="ent"><span class="soft">${esc(loggerLine(ll))}</span></span>`);
+
+  // row highlights + spinner rings for agents active in the last seconds
+  const busy = { scout: true, filter: s.watching > 0, analyst: false, exec: open.length > 0, risk: open.length > 0, logger: true };
+  for (const a of ['scout', 'filter', 'analyst', 'exec', 'risk', 'logger']) {
+    const row = $('r-' + a);
+    row.classList.toggle('hl-' + a, (S.flash[a] || 0) > now);
+    row.classList.toggle('busy', !!busy[a] && (S.flash[a] || 0) > now - 15000);
+  }
+}
+function setMid(agent, key, html, doFlash = true) {
+  const el = $('m-' + agent);
+  if (!key) return;
+  if (el.dataset.k === String(key)) return;
+  const first = !el.dataset.k;
+  el.dataset.k = String(key);
+  el.innerHTML = html();
+  if (doFlash && !first) flash(agent);
+  if (first && agent !== 'risk') flash(agent, 2500);
+}
+function loggerLine(l) {
+  if (!l) return '—';
+  const a = l.agent.toLowerCase();
+  const m = /^(.*?)\s*(\$\S+)/.exec(l.msg);
+  if (l.kind === 'kill' || (l.kind === 'score' && /killed/.test(l.msg))) return `${a} killed ${l.symbol ? '$' + l.symbol : ''}`;
+  if (l.kind === 'sell') return `risk sold $${l.symbol}`;
+  if (l.kind === 'buy') return `executor bought $${l.symbol}`;
+  if (m) return `${a} ${m[1]} ${m[2]}`.replace(/\s+/g, ' ');
+  return `${a}: ${l.msg}`;
+}
+
+function logHtml(l) {
+  let dot = '#6d7581', action = '', sym = '', rest = '', actCls = 'x', restCls = '';
+  const m = /^(.*?)(\$\S+)(.*)$/.exec(l.msg);
+  if (m) { action = m[1].trim(); sym = m[2]; rest = m[3].trim(); } else { rest = l.msg; }
+  const red = 'color:var(--red-2)', green = 'color:var(--green-2)', gray = 'color:var(--muted)';
+  let aSt = gray, rSt = gray, symW = false;
+  if (l.kind === 'kill') { dot = 'var(--red)'; aSt = red; rSt = red; }
+  else if (l.kind === 'score') {
+    if (/killed/.test(l.msg)) { dot = 'var(--red)'; aSt = red; rSt = red; }
+    else { dot = '#8f9bff'; symW = true; rSt = green; }
+  }
+  else if (l.kind === 'sell') { dot = '#c084fc'; const pos = (l.pnl ?? 0) >= 0; aSt = pos ? green : red; rSt = pos ? green : red; symW = true; }
+  else if (l.kind === 'buy') { dot = 'var(--green)'; aSt = green; symW = true; }
+  else if (l.kind === 'skip') { dot = '#6d7581'; }
+  else if (l.kind === 'warn') { dot = 'var(--amber)'; rSt = 'color:#c9a86a'; }
+  else if (l.agent === 'RISK') { dot = '#c084fc'; rSt = 'color:#c9a3f7'; }
+  return `<div class="lg"><span class="d" style="background:${dot}"></span><span class="t">${hhmm(l.ts)}</span><span class="a a-${esc(l.agent)}">${esc(l.agent)}:</span>`
+    + (action ? `<span class="x" style="${aSt}">${esc(action)}</span>` : '')
+    + (sym ? `<span class="s ${symW ? 'w' : ''}">${esc(sym)}</span>` : '')
+    + `<span class="rest" style="${rSt}">${esc(rest)}</span></div>`;
+}
+const DECISION = new Set(['kill', 'score', 'buy', 'sell', 'skip']);
+function renderLogs(animateNew = false) {
+  const box = $('logs');
+  const items = S.logs.filter((l) => DECISION.has(l.kind) || (l.agent === 'RISK')).slice(-6).reverse();
+  const key = items.map((l) => l.id).join(',');
+  if (box.dataset.k === key) return;
+  const prevTop = box.dataset.top;
+  box.dataset.k = key;
+  box.dataset.top = items[0]?.id ?? '';
+  box.innerHTML = items.length ? items.map(logHtml).join('') : '<div class="lg mut" style="animation:none">waiting for the first decision…</div>';
+  if (!animateNew || prevTop === box.dataset.top) [...box.children].forEach((c) => (c.style.animation = 'none'));
+  else [...box.children].slice(1).forEach((c) => (c.style.animation = 'none'));
+  $('loggerMeta').textContent = `${fmtInt(S.snap?.counters.killed ?? 0)} killed`;
+}
+
+function ruleGroups(s) {
+  const k = s.counters.killedByRule, f = S.snap?.settings?.filter || {};
+  const short = (v) => '$' + (v >= 1000 ? Math.round(v / 1000) + 'k' : v);
+  return [
+    { label: `Liq <${short(f.minLiquidityUsd ?? 40000)} · vol <${short(f.minVolumeUsd ?? 50000)}`, n: (k.liquidity || 0) + (k.volume || 0) },
+    { label: 'Mint/freeze not revoked', n: (k.mintAuthority || 0) + (k.freezeAuthority || 0) },
+    { label: 'LP not burned/locked', n: k.lpLocked || 0 },
+    { label: `Top 10 holders >${f.maxTop10Pct ?? 25}%`, n: k.top10 || 0 },
+    { label: `Dev >${f.maxDevPct ?? 3}% · bundled >${f.maxBundlePct ?? 10}%`, n: (k.devHolding || 0) + (k.bundled || 0) },
+    { label: `Already +${f.maxPriceChangeH1 ?? 80}% in 1h`, n: k.pumped || 0 },
+  ];
+}
+function renderKills(s) {
+  const g = ruleGroups(s);
+  const total = g.reduce((a, x) => a + x.n, 0) || 1;
+  const grid = $('kgrid');
+  if (!grid.children.length) grid.innerHTML = g.map(() => `<div class="kr"><div class="l"><span></span><b class="num">0</b></div><div class="bar"><i></i></div></div>`).join('');
+  g.forEach((x, i) => {
+    const el = grid.children[i];
+    el.querySelector('span').textContent = x.label;
+    tween(el.querySelector('b'), x.n, (v) => fmtInt(v));
+    el.querySelector('i').style.width = (x.n ? Math.max(2, (x.n / total) * 100) : 0) + '%';
+  });
+  const c = s.counters;
+  $('bestWorst').textContent = `best ${c.bestTrade != null && c.bestTrade > 0 ? sUsd(c.bestTrade, 0) : '—'} · worst ${c.worstTrade != null && c.worstTrade < 0 ? sUsd(c.worstTrade, 0) : '—'}`;
+}
+
+function renderMode(s) {
+  const b = $('live');
+  const live = s.mode === 'live';
+  $('liveTxt').textContent = live ? 'Live' : 'Paper';
+  b.classList.toggle('paper', !live);
+  const li = s.live;
+  $('liveInfo').innerHTML = !li.requested
+    ? 'Domyślnie bot handluje wyłącznie na papierze. LIVE wymaga <b>TRADING_MODE=live</b> i <b>LIVE_CONFIRM</b> w .env oraz potwierdzenia tutaj. Podpisywanie transakcji nie jest zaimplementowane.'
+    : !li.envConfirmed ? 'TRADING_MODE=live, ale brak LIVE_CONFIRM=I_UNDERSTAND_REAL_MONEY w .env (potwierdzenie 1/2).'
+    : li.armed ? '<b class="r">LIVE uzbrojone (zaślepka)</b>. Zlecenia są tylko logowane, nic nie jest podpisywane.' : 'Potwierdzenie 1/2 z .env OK. Kliknij „Uzbrój LIVE”, aby potwierdzić drugi raz.';
+}
+
+function renderPositions(s) {
+  const el = $('positions');
+  if (!s.positions.length) { el.innerHTML = `<div class="empty">Brak otwartych pozycji · obserwuję ${fmtInt(s.watching)} tokenów</div>`; return; }
+  el.innerHTML = s.positions.map((p) => `
+    <div class="pos">
+      ${ava(p.imageUrl, p.symbol)}
+      <div class="n">$${esc(p.symbol)} <span class="mut" style="font-size:11px;font-weight:500">score ${p.score}${p.trailActive ? ' · <span style="color:var(--pink)">trailing</span>' : ''}</span></div>
+      <div class="pnl ${p.pnlUsd >= 0 ? 'g' : 'r'}">${sUsd(p.pnlUsd)}<div style="font-size:11px">${pct(p.pnlPct)}</div></div>
+      <div class="sub">${usd(p.sizeUsd)} · in ${fmtPrice(p.entryPrice)} → ${fmtPrice(p.lastPrice)} · ${Math.round((s.now - p.openedAt) / 60000)}m · ${esc(p.fillSource)}</div>
+      <div class="act"><a class="btn sm" href="${esc(p.url)}" target="_blank" rel="noopener">DexScreener ↗</a><button class="btn sm red" data-close="${p.id}">Zamknij</button></div>
+    </div>`).join('');
+}
+
+async function loadTrades() {
+  try {
+    S.trades = await api('/api/trades');
+    const el = $('history');
+    if (!S.trades.length) { el.innerHTML = '<div class="empty">Brak zamkniętych transakcji w tej sesji</div>'; return; }
+    el.innerHTML = S.trades.map((t) => `
+      <div class="tr">
+        ${ava(t.imageUrl, t.symbol)}
+        <div><b>$${esc(t.symbol)}</b> <span class="mut">${hhmm(t.openedAt)}→${hhmm(t.closedAt)} · ${esc(t.exitReason || '')}</span></div>
+        <div class="${t.pnlUsd >= 0 ? 'g' : 'r'}" style="text-align:right;font-weight:800">${sUsd(t.pnlUsd)}</div>
+        <div class="mut" style="font-size:11px">${usd(t.sizeUsd)} · ${pct(t.pnlPct)} · fee ${usd(t.feesUsd)} · ${esc(t.entry)} / ${esc(t.exit)}</div>
+        <a class="btn sm" href="${esc(t.url)}" target="_blank" rel="noopener">↗</a>
+      </div>`).join('');
+  } catch {}
+}
+
+async function loadStats() {
+  try {
+    const { stats: st } = await api('/api/stats');
+    const s = S.snap;
+    const rules = (s?.rules || []).map((r) => `<div class="kv"><span>${esc(r.label)}</span><b class="r">${fmtInt(st.killsByRule[r.id] || 0)}</b></div>`).join('');
+    const health = Object.entries(s?.health || {}).map(([k, v]) => `<div class="kv"><span>${esc(k)}</span><span class="${v.ok >= v.err ? 'g' : 'r'}">${v.ok >= v.err ? 'OK ' + hhmm(v.ok) : 'błąd ' + hhmm(v.err) + ' ' + esc(v.lastError.slice(0, 40))}</span></div>`).join('');
+    $('stats').innerHTML = `
+      <div class="stats">
+        <div class="st"><span>Winrate</span><b>${st.winrate.toFixed(0)}%</b></div>
+        <div class="st"><span>PnL po fee</span><b class="${st.netPnlUsd >= 0 ? 'g' : 'r'}">${sUsd(st.netPnlUsd)}</b></div>
+        <div class="st"><span>Śr. zysk</span><b class="g">${sUsd(st.avgWinUsd)}</b></div>
+        <div class="st"><span>Śr. strata</span><b class="r">${sUsd(st.avgLossUsd)}</b></div>
+        <div class="st"><span>Max drawdown</span><b class="r">${st.maxDrawdownPct.toFixed(1)}%</b></div>
+        <div class="st"><span>Transakcje</span><b>${st.trades} <span class="mut" style="font-size:12px">${st.wins}W/${st.losses}L</span></b></div>
+      </div>
+      <div class="sect">Szczegóły</div>
+      <div class="kv"><span>Opłaty łącznie</span><b>${usd(st.feesUsd)}</b></div>
+      <div class="kv"><span>PnL brutto (przed fee)</span><b>${sUsd(st.grossPnlUsd)}</b></div>
+      <div class="kv"><span>Profit factor</span><b>${st.profitFactor == null ? '—' : st.profitFactor.toFixed(2)}</b></div>
+      <div class="kv"><span>Max drawdown $</span><b>${usd(st.maxDrawdownUsd)}</b></div>
+      <div class="kv"><span>Wyjścia</span><b>${Object.entries(st.exitReasons).map(([k, v]) => `${esc(k)} ${v}`).join(' · ') || '—'}</b></div>
+      <div class="kv"><span>SOL/USD</span><b>${s?.solUsd ? '$' + s.solUsd.toFixed(2) : '—'}</b></div>
+      <div class="kv"><span>Obserwowane tokeny</span><b>${fmtInt(s?.watching || 0)}</b></div>
+      <div class="sect">Killi per reguła</div>${rules}
+      <div class="sect">Źródła danych</div>${health || '<div class="mut">—</div>'}`;
+  } catch {}
+}
+
+const SETTINGS_FIELDS = [
+  ['Kapitał', null],
+  ['startEquity', 'Kapitał startowy ($)', 'zastosowany po resecie sesji'],
+  ['maxPositionPct', 'Maks. rozmiar pozycji (% equity)'],
+  ['maxOpenPositions', 'Maks. otwartych pozycji'],
+  ['tokenCooldownMin', 'Cooldown na token (min)'],
+  ['Filter', null],
+  ['filter.minLiquidityUsd', 'Min. płynność ($)'],
+  ['filter.minVolumeUsd', 'Min. wolumen ($)'],
+  ['filter.volumeWindow', 'Okno wolumenu', '', ['m5', 'h1', 'h6', 'h24']],
+  ['filter.minLpLockedPct', 'Min. LP spalone/zablok. (%)'],
+  ['filter.maxTop10Pct', 'Maks. top 10 holderów (%)'],
+  ['filter.maxDevPct', 'Maks. dev (%)'],
+  ['filter.maxBundlePct', 'Maks. bundle (%)'],
+  ['filter.maxPriceChangeH1', 'Maks. wzrost 1h (%)'],
+  ['filter.watchWindowMin', 'Okno obserwacji (min)', 'ile nowy token może „dorastać” do progów liq/vol'],
+  ['Analyst', null],
+  ['analyst.minScore', 'Min. score do zakupu'],
+  ['analyst.weights.momentum', 'Waga: momentum'],
+  ['analyst.weights.buySell', 'Waga: buys/sells'],
+  ['analyst.weights.volumeGrowth', 'Waga: wzrost wolumenu'],
+  ['analyst.weights.liqFdv', 'Waga: płynność/FDV'],
+  ['analyst.weights.pairAge', 'Waga: wiek pary'],
+  ['analyst.weights.uniqueBuyers', 'Waga: unikalni kupujący'],
+  ['analyst.weights.rugcheck', 'Waga: RugCheck'],
+  ['Risk', null],
+  ['risk.stopLossPct', 'Stop loss (%)'],
+  ['risk.trailActivatePct', 'Trailing od (+%)'],
+  ['risk.trailPct', 'Trail od szczytu (%)'],
+  ['risk.timeStopMin', 'Time stop (min, 0 = wył.)'],
+];
+const getPath = (o, p) => p.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+function setPath(o, p, v) { const ks = p.split('.'); let a = o; ks.slice(0, -1).forEach((k) => (a = a[k] ??= {})); a[ks[ks.length - 1]] = v; }
+function renderSettings(st) {
+  const f = $('settingsForm');
+  if (f.contains(document.activeElement)) return;
+  f.innerHTML = SETTINGS_FIELDS.map(([key, label, hint, opts]) => {
+    if (label === null) return `<div class="sect" style="grid-column:1/-1">${key}</div>`;
+    const v = getPath(st, key);
+    const input = opts ? `<select name="${key}">${opts.map((o) => `<option ${o === v ? 'selected' : ''}>${o}</option>`).join('')}</select>` : `<input name="${key}" inputmode="decimal" value="${esc(v)}">`;
+    return `<label for="${key}">${esc(label)}${hint ? `<small>${esc(hint)}</small>` : ''}</label>${input}`;
+  }).join('');
+  f.className = 'form';
+}
+
+function render(full) {
+  const s = S.snap; if (!s) return;
+  renderMode(s);
+  renderTicker(s.ticker);
+  renderEquity(s);
+  renderDesk(s);
+  renderKills(s);
+  $('loggerMeta').textContent = `${fmtInt(s.counters.killed)} killed`;
+  if (S.tab === 'positions') renderPositions(s);
+  if (full && s.settings) renderSettings(s.settings);
+  renderChart();
+}
+
+// ---------------------------------------------------------------- data flow
+async function api(path, opts = {}) {
+  const r = await fetch(path, { credentials: 'same-origin', headers: { 'content-type': 'application/json' }, ...opts });
+  if (r.status === 401) { showLogin(); throw new Error('unauthorized'); }
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2600); }
+
+function connect() {
+  try { S.es?.close(); } catch {}
+  const es = new EventSource('/api/stream');
+  S.es = es;
+  S.lastMsg = Date.now();
+  const mark = () => { S.lastMsg = Date.now(); $('conn').classList.remove('on'); };
+  es.addEventListener('snapshot', (e) => {
+    mark();
+    const s = JSON.parse(e.data);
+    S.snap = s; S.curve = s.curve || []; S.logs = s.logs || [];
+    render(true); renderLogs(false); renderFullLog(true);
+    if (S.tab === 'history') loadTrades();
+    if (S.tab === 'stats') loadStats();
+  });
+  es.addEventListener('tick', (e) => {
+    mark();
+    const s = JSON.parse(e.data);
+    S.snap = { ...S.snap, ...s };
+    render(false);
+  });
+  es.addEventListener('log', (e) => {
+    mark();
+    const l = JSON.parse(e.data);
+    S.logs.push(l); if (S.logs.length > 200) S.logs.shift();
+    if (l.agent === 'FILTER' && l.kind === 'kill') flash('filter');
+    if (l.agent === 'ANALYST') flash('analyst');
+    if (l.agent === 'EXECUTOR') flash('exec');
+    if (l.agent === 'RISK') flash('risk');
+    flash('logger', 2500);
+    renderLogs(true);
+    if (S.tab === 'log') prependFullLog(l);
+  });
+  es.addEventListener('equity', (e) => { mark(); S.curve.push(JSON.parse(e.data)); if (S.curve.length > 2000) S.curve.shift(); renderChart(); });
+  es.addEventListener('trade', () => { mark(); loadTrades(); if (S.tab === 'stats') loadStats(); });
+  es.addEventListener('ping', mark);
+  es.onerror = async () => {
+    $('conn').classList.add('on');
+    if (es.readyState === EventSource.CLOSED) {
+      try { const me = await (await fetch('/api/me')).json(); if (!me.auth) return showLogin(); } catch {}
+      setTimeout(connect, 3000);
+    }
+  };
+}
+// wake-up from background (iOS suspends PWAs) → reconnect if the stream went stale
+function ensureFresh() {
+  if (document.visibilityState !== 'visible') return;
+  if (!S.es || S.es.readyState === EventSource.CLOSED || Date.now() - S.lastMsg > 20000) connect();
+}
+document.addEventListener('visibilitychange', ensureFresh);
+window.addEventListener('pageshow', ensureFresh);
+window.addEventListener('online', ensureFresh);
+window.addEventListener('focus', ensureFresh);
+setInterval(() => { if (document.visibilityState === 'visible' && Date.now() - S.lastMsg > 35000) connect(); }, 5000);
+setInterval(() => { if (S.snap) renderDesk(S.snap); }, 1000);
+
+function renderFullLog(reset) {
+  if (S.tab !== 'log' && !reset) return;
+  const box = $('fullLog');
+  const items = S.logs.slice().reverse();
+  box.innerHTML = items.map(logHtml).join('');
+  S.oldestLogId = items.length ? items[items.length - 1].id : null;
+}
+function prependFullLog(l) { $('fullLog').insertAdjacentHTML('afterbegin', logHtml(l)); }
+
+// ---------------------------------------------------------------- UI events
+$('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  S.tab = b.dataset.t;
+  document.querySelectorAll('#tabs button').forEach((x) => x.classList.toggle('on', x === b));
+  document.querySelectorAll('.panel').forEach((p) => p.classList.toggle('on', p.id === 't-' + S.tab));
+  if (S.tab === 'history') loadTrades();
+  if (S.tab === 'stats') loadStats();
+  if (S.tab === 'log') renderFullLog(true);
+  if (S.tab === 'positions' && S.snap) renderPositions(S.snap);
+});
+$('positions').addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-close]'); if (!b) return;
+  if (!confirm('Zamknąć pozycję po aktualnym kwotowaniu?')) return;
+  b.disabled = true;
+  try { await api(`/api/positions/${b.dataset.close}/close`, { method: 'POST', body: '{}' }); toast('Pozycja zamknięta'); } catch (err) { toast(err.message); }
+});
+$('moreLog').addEventListener('click', async () => {
+  if (!S.oldestLogId) return;
+  const older = await api(`/api/logs?before=${S.oldestLogId}&limit=100`);
+  $('fullLog').insertAdjacentHTML('beforeend', older.map(logHtml).join(''));
+  if (older.length) S.oldestLogId = older[older.length - 1].id;
+});
+$('saveSettings').addEventListener('click', async () => {
+  const patch = {};
+  new FormData($('settingsForm')).forEach((v, k) => setPath(patch, k, k.endsWith('volumeWindow') ? v : Number(String(v).replace(',', '.'))));
+  try { const st = await api('/api/settings', { method: 'PUT', body: JSON.stringify(patch) }); S.snap.settings = st; document.activeElement?.blur(); renderSettings(st); toast('Zapisano'); } catch (err) { toast(err.message); }
+});
+$('resetSession').addEventListener('click', async () => {
+  const eq = prompt('Reset sesji: otwarte pozycje zostaną zamknięte po ostatniej cenie, liczniki wyzerowane.\nKapitał startowy ($):', S.snap?.settings?.startEquity ?? 150);
+  if (eq === null) return;
+  try { await api('/api/session/reset', { method: 'POST', body: JSON.stringify({ startEquity: Number(eq) }) }); toast('Nowa sesja'); } catch (err) { toast(err.message); }
+});
+$('armLive').addEventListener('click', async () => {
+  if (!confirm('UWAGA: tryb LIVE dotyczy prawdziwych pieniędzy. Kontynuować? (1/2)')) return;
+  const phrase = prompt('Potwierdzenie 2/2: wpisz LIVE wielkimi literami');
+  if (phrase === null) return;
+  try { await api('/api/live/arm', { method: 'POST', body: JSON.stringify({ confirmed: true, phrase }) }); toast('LIVE uzbrojone (zaślepka)'); } catch (err) { toast(err.message); }
+});
+$('disarmLive').addEventListener('click', async () => { try { await api('/api/live/disarm', { method: 'POST', body: '{}' }); toast('Tryb paper'); } catch (err) { toast(err.message); } });
+$('logout').addEventListener('click', async () => { await fetch('/api/logout', { method: 'POST' }); location.reload(); });
+$('live').addEventListener('click', () => { document.querySelector('#tabs [data-t=settings]').click(); $('t-settings').scrollIntoView({ behavior: 'smooth' }); });
+
+function showLogin() { $('login').hidden = false; try { S.es?.close(); } catch {} setTimeout(() => $('pw').focus(), 50); }
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  $('loginErr').textContent = '';
+  const r = await fetch('/api/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ password: $('pw').value }) });
+  if (r.ok) { $('login').hidden = true; $('pw').value = ''; connect(); }
+  else { const j = await r.json().catch(() => ({})); $('loginErr').textContent = j.error || 'Błąd logowania'; }
+});
+window.addEventListener('resize', () => renderChart());
+
+(async function boot() {
+  try {
+    const me = await (await fetch('/api/me')).json();
+    if (!me.auth) return showLogin();
+  } catch {}
+  connect();
+})();
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+</script>
+</body>
+</html>

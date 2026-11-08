@@ -1,0 +1,139 @@
+{
+ "mint": "8A4yC54FvnQSDHtVmKDqEtUDHPeWyBx679WczNNczGnt",
+ "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+ "creator": "7H2uqTLZGF2jtYLjXnz3UCbFdb7aFxVLVyyxnNDKFzjy",
+ "creatorBalance": 0,
+ "token": {
+  "mintAuthority": "HMHzfuZQmR7TVXSMXsncDfBBcveuydvmpAopHoFFx1yF",
+  "supply": 1,
+  "decimals": 0,
+  "isInitialized": true,
+  "freezeAuthority": "HMHzfuZQmR7TVXSMXsncDfBBcveuydvmpAopHoFFx1yF"
+ },
+ "token_extensions": null,
+ "tokenMeta": {
+  "name": "Cathlete #39406625",
+  "symbol": "WLKNC",
+  "uri": "https://ipfs.walken.io/ipfs/QmTNTTR6hmgpTR6T12o21eQgWrNuz8rXsTgWY3MtRjUKCq",
+  "mutable": true,
+  "updateAuthority": "7H2uqTLZGF2jtYLjXnz3UCbFdb7aFxVLVyyxnNDKFzjy"
+ },
+ "topHolders": [
+  {
+   "address": "21kt4Usm9eYXFSvs4Huz3k5ae54zsTMJP2i7W4ro3rac",
+   "amount": 1,
+   "decimals": 0,
+   "pct": 0,
+   "uiAmount": 1,
+   "uiAmountString": "1",
+   "owner": "A2B1w2fpwuJZrF9b69KBFb6Cn4Cp7siKGqQwPBJEGLYj",
+   "insider": false
+  },
+  {
+   "address": "6NPTSmHN4WYAWSfdhU5Yn7LCfYirsKgFVRhtK52X93Tz",
+   "amount": 0,
+   "decimals": 0,
+   "pct": 0,
+   "uiAmount": 0,
+   "uiAmountString": "0",
+   "owner": "6gmKqPKedx8enzDxpXzmcCnxTkzjS4381QkFq9X8371E",
+   "insider": false
+  },
+  {
+   "address": "Fh3o8XJKgxN6gq78TeiDpbtKTpjQjmrQ71tCjuf8aoah",
+   "amount": 0,
+   "decimals": 0,
+   "pct": 0,
+   "uiAmount": 0,
+   "uiAmountString": "0",
+   "owner": "7H2uqTLZGF2jtYLjXnz3UCbFdb7aFxVLVyyxnNDKFzjy",
+   "insider": false
+  }
+ ],
+ "freezeAuthority": {
+  "lamports": 751840,
+  "owner": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+  "data": [
+   "BgAAAAAAAAAAAQAAAAAAAAAAAAA=",
+   "base64"
+  ],
+  "executable": false,
+  "rentEpoch": 18446744073709552000,
+  "space": 20
+ },
+ "mintAuthority": {
+  "lamports": 751840,
+  "owner": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+  "data": [
+   "BgAAAAAAAAAAAQAAAAAAAAAAAAA=",
+   "base64"
+  ],
+  "executable": false,
+  "rentEpoch": 18446744073709552000,
+  "space": 20
+ },
+ "risks": [
+  {
+   "name": "Mint Authority still enabled",
+   "value": "",
+   "description": "More tokens can be minted by the owner",
+   "score": 50000,
+   "level": "danger"
+  },
+  {
+   "name": "Freeze Authority still enabled",
+   "value": "",
+   "description": "Tokens can be frozen and prevented from trading",
+   "score": 25000,
+   "level": "danger"
+  },
+  {
+   "name": "Mutable metadata",
+   "value": "",
+   "description": "Token metadata can be changed by the owner",
+   "score": 100,
+   "level": "warn"
+  }
+ ],
+ "score": 75101,
+ "score_normalised": 76,
+ "fileMeta": {
+  "description": "",
+  "name": "Cathlete #39406625",
+  "symbol": "WLKNC",
+  "image": "https://ipfs.walken.io/ipfs/QmTu3DB7Yo5x3Zmvq6He791S3JeCQRHkYp3rGqxiSMkBDC"
+ },
+ "lockerOwners": {},
+ "lockers": {},
+ "lockerScanStatus": "none",
+ "markets": null,
+ "totalMarketLiquidity": 0,
+ "totalStableLiquidity": 0,
+ "totalLPProviders": 0,
+ "totalHolders": 3,
+ "price": 0,
+ "rugged": false,
+ "tokenType": "",
+ "transferFee": {
+  "pct": 0,
+  "maxAmount": 0,
+  "authority": "11111111111111111111111111111111"
+ },
+ "knownAccounts": {
+  "7H2uqTLZGF2jtYLjXnz3UCbFdb7aFxVLVyyxnNDKFzjy": {
+   "name": "Creator",
+   "type": "CREATOR"
+  }
+ },
+ "events": [],
+ "verification": null,
+ "validation": {
+  "validated": false
+ },
+ "graphInsidersDetected": 0,
+ "insiderNetworks": null,
+ "detectedAt": "2026-11-08T22:18:38.074388316Z",
+ "creatorTokens": null,
+ "launchpad": null,
+ "deployPlatform": ""
+}

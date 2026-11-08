@@ -1,0 +1,85 @@
+{
+ "token": {
+  "address": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "name": "Pussycoin",
+  "symbol": "PUSSY"
+ },
+ "decimalsHint": null,
+ "response": {
+  "swapType": "aggregator",
+  "inAmount": "100000000",
+  "outAmount": "4885360299",
+  "otherAmountThreshold": "4885360299",
+  "swapMode": "ExactIn",
+  "slippageBps": 0,
+  "priceImpactPct": "0.0018397373576936572",
+  "routePlan": [
+   {
+    "percent": 100,
+    "bps": 10000,
+    "usdValue": 8.65780374305454,
+    "swapInfo": {
+     "ammKey": "8FnX3xo2yYw3EUE6w3nQA4GfXGS9wpK6oj3veJpbFzLo",
+     "label": "BisonFi",
+     "inputMint": "So11111111111111111111111111111111111111112",
+     "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     "inAmount": "100000000",
+     "outAmount": "8660895"
+    }
+   },
+   {
+    "percent": 100,
+    "bps": 10000,
+    "usdValue": 8.65780374305454,
+    "swapInfo": {
+     "ammKey": "9Ms4zA4vHHh8NUC5EPfWu5NiZ9guNFxjRd4Q5tp735yZ",
+     "label": "Manifest",
+     "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     "outputMint": "NVDAVuiB7hwd3m5Wa1JuHNovPaPG6BH1QNztbKFxNjv",
+     "inAmount": "8660895",
+     "outAmount": "44328"
+    }
+   },
+   {
+    "percent": 100,
+    "bps": 10000,
+    "usdValue": 8.65780374305454,
+    "swapInfo": {
+     "ammKey": "4HHcEXZvCYQjSpLrGei5GpRwaZPUmNqFs6eh1BXssfsj",
+     "label": "Raydium CP",
+     "inputMint": "NVDAVuiB7hwd3m5Wa1JuHNovPaPG6BH1QNztbKFxNjv",
+     "outputMint": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+     "inAmount": "44328",
+     "outAmount": "4890250549"
+    }
+   }
+  ],
+  "feeMint": "So11111111111111111111111111111111111111112",
+  "feeBps": 10,
+  "platformFee": {
+   "feeBps": 10,
+   "feeMint": "So11111111111111111111111111111111111111112"
+  },
+  "signatureFeeLamports": 0,
+  "signatureFeePayer": null,
+  "prioritizationFeeLamports": 0,
+  "prioritizationFeePayer": null,
+  "rentFeeLamports": 0,
+  "rentFeePayer": null,
+  "transaction": null,
+  "gasless": false,
+  "jitOptimized": false,
+  "taker": null,
+  "inputMint": "So11111111111111111111111111111111111111112",
+  "outputMint": "FZxHLUGiGchY5uvvoeqh1EKiXTrGdN67WUBhUc1fLoat",
+  "router": "metis",
+  "guaranteedPrice": false,
+  "requestId": "01a1bd3e-bbda-70a0-bdd5-708818185d9f",
+  "inUsdValue": 8.65780374305454,
+  "outUsdValue": 8.673731828036217,
+  "swapUsdValue": 8.65780374305454,
+  "priceImpact": 0.1839737357693657,
+  "mode": "ultra",
+  "totalTime": 98
+ }
+}

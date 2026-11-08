@@ -1,0 +1,10 @@
+# Caddy pobiera i odnawia certyfikat HTTPS automatycznie (wymagany dla PWA i service workera).
+{$DOMAIN} {
+	@notStream not path /api/stream
+	encode @notStream zstd gzip
+
+	reverse_proxy bot:8080 {
+		# Server-Sent Events: wysyłaj od razu, bez buforowania
+		flush_interval -1
+	}
+}
