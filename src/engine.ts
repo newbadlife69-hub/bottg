@@ -124,7 +124,8 @@ export class Engine extends EventEmitter {
   live: LiveGateState = { requested: false, envConfirmed: false, armed: false };
   health: Record<string, { ok: number; err: number; lastError: string }> = {};
 
-  private seen = new Set<string>();
+  private seen = new Map<string, number>();
+  private lastPrune = 0;
   private pendingBuys = 0;
   private reservedCash = 0;
   private pairSet = new Set<string>();
@@ -156,7 +157,7 @@ export class Engine extends EventEmitter {
     this.counters = { ...emptyCounters(), ...JSON.parse(s.counters || '{}') };
     this.counters.killedByRule = { ...emptyRuleCounts(), ...(this.counters.killedByRule ?? {}) };
     this.positions = this.db.openPositions(s.id).map((p) => ({ ...p, status: 'open' as const }));
-    for (const m of this.db.seenMints(s.id, now - 24 * 3600_000)) this.seen.add(m);
+    for (const m of this.db.seenMints(s.id, now - 24 * 3600_000)) this.seen.set(m, now);
     for (const t of this.db.activeTokens(s.id)) {
       this.watch.set(t.mint, {
         mint: t.mint,
@@ -281,7 +282,7 @@ export class Engine extends EventEmitter {
     for (const t of tokens) {
       if (t.poolAddress) this.addPair(t.poolAddress);
       if (this.seen.has(t.mint)) continue;
-      this.seen.add(t.mint);
+      this.seen.set(t.mint, now);
       this.counters.scanned++;
       const item: WatchItem = {
         mint: t.mint,
@@ -323,6 +324,20 @@ export class Engine extends EventEmitter {
       .map((w) => w.mint);
   }
 
+  /** Current watch list as discovery records (written to a fresh recording after a restart). */
+  watchTokens(): DiscoveredToken[] {
+    return [...this.watch.values()].map((w) => ({
+      mint: w.mint,
+      symbol: w.symbol,
+      name: w.name,
+      imageUrl: w.imageUrl,
+      decimals: w.decimals,
+      source: w.source as DiscoveredToken['source'],
+      poolAddress: null,
+      poolCreatedAt: w.poolCreatedAt,
+    }));
+  }
+
   openMints(): string[] {
     return [...new Set(this.positions.map((p) => p.mint))];
   }
@@ -331,9 +346,17 @@ export class Engine extends EventEmitter {
   tickerMints(n = 16): string[] {
     const now = this.svc.now();
     const pos = this.openMints();
+    const symbols = new Set(pos.map((m) => this.snaps.get(m)?.symbol.toLowerCase()));
     const rest = [...this.snaps.values()]
       .filter((s) => now - s.ts < 30 * 60_000 && s.liquidityUsd >= 15_000 && s.priceUsd > 0 && !pos.includes(s.mint))
       .sort((a, b) => b.volume.h1 - a.volume.h1)
+      // copycat tokens often share a symbol – show only the most active one
+      .filter((s) => {
+        const k = s.symbol.toLowerCase();
+        if (symbols.has(k)) return false;
+        symbols.add(k);
+        return true;
+      })
       .slice(0, Math.max(0, n - pos.length))
       .map((s) => s.mint);
     return [...pos, ...rest];
@@ -382,6 +405,12 @@ export class Engine extends EventEmitter {
     }
     const open = new Set(this.openMints());
     for (const [mint, s] of this.snaps) if (now - s.ts > 45 * 60_000 && !open.has(mint)) this.snaps.delete(mint);
+    if (now - this.lastPrune > 3600_000) {
+      // keep memory bounded when running for weeks
+      this.lastPrune = now;
+      for (const [mint, at] of this.seen) if (now - at > 24 * 3600_000) this.seen.delete(mint);
+      for (const [mint, until] of this.cooldown) if (until < now) this.cooldown.delete(mint);
+    }
     // stuck positions with no price updates → try to exit via quote
     for (const pos of this.positions) {
       if (pos.status === 'open' && now - pos.lastPriceAt > 5 * 60_000) this.track(this.closePosition(pos, 'stale price', null));
@@ -535,6 +564,7 @@ export class Engine extends EventEmitter {
     const entryPrice = sizing.sizeUsd / fill.outUi;
     if (fill.priceImpactPct > 15) return skip(`impact ${fill.priceImpactPct.toFixed(1)}%`);
     if (snap.priceUsd > 0 && entryPrice > snap.priceUsd * 1.25) return skip('quote >25% above market');
+    if (snap.priceUsd > 0 && entryPrice < snap.priceUsd * 0.5) return skip('quote far below market (decimals?)');
     if (this.live.armed) {
       this.log('EXECUTOR', 'info', `LIVE stub: would buy $${sym} for $${sizing.sizeUsd.toFixed(2)} – signing not implemented, paper only`);
     }
@@ -615,9 +645,13 @@ export class Engine extends EventEmitter {
 
   async closePosition(pos: Position, reason: string, snap: MarketSnapshot | null) {
     if (pos.status !== 'open') return;
-    pos.status = 'closing';
     const now = this.svc.now();
     const solUsd = this.svc.solUsd();
+    if (!(solUsd > 0)) {
+      this.warn('RISK', `exit $${pos.symbol} postponed: no SOL/USD price`);
+      return;
+    }
+    pos.status = 'closing';
     let fill: Fill | null = null;
     try {
       fill = await this.svc.quoteSell({ pos, snap: snap ?? this.snaps.get(pos.mint) ?? null, solUsd });
@@ -753,10 +787,10 @@ export class Engine extends EventEmitter {
     const now = this.svc.now();
     const equity = this.equity();
     const c = this.counters;
-    const ticker = this.tickerMints().map((m) => {
-      const s = this.snaps.get(m)!;
-      return { mint: m, symbol: s.symbol, imageUrl: s.imageUrl, priceUsd: s.priceUsd, change: s.priceChange.h1 };
-    });
+    const ticker = this.tickerMints()
+      .map((m) => this.snaps.get(m))
+      .filter((s): s is MarketSnapshot => !!s)
+      .map((s) => ({ mint: s.mint, symbol: s.symbol, imageUrl: s.imageUrl, priceUsd: s.priceUsd, change: s.priceChange.h1 }));
     const positions = this.positions.map((p) => {
       const value = this.positionValue(p);
       const s = this.snaps.get(p.mint);

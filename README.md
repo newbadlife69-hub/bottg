@@ -12,6 +12,8 @@ Scout ──► Filter ──► Analyst ──► Executor ──► Risk ─�
 
 > To narzędzie badawcze. Wyniki paper tradingu nie gwarantują wyników na prawdziwych pieniądzach.
 
+<p align="center"><img src="docs/screenshot-390x844.png" width="320" alt="Panel Grok Bot na iPhonie (390×844)"></p>
+
 ---
 
 ## 1. Szybki start (lokalnie)
@@ -177,7 +179,7 @@ Caddy sam pobierze certyfikat Let's Encrypt. SSE przechodzi bez buforowania (`fl
 
 **Testy** (`npm test`) działają na **nagranych prawdziwych odpowiedziach** z `test/fixtures`: raportach RugCheck tokenów, które faktycznie łamią każdą regułę, parach DexScreener, nowych poolach GeckoTerminal, kwotowaniach Jupitera i prawdziwych seriach cen (np. krach NVIDIH o 63% do testu stop lossa). Obejmują reguły filtra, risk manager, Analysta, wypełnienia, sizing, pełny przepływ silnika i codec nagrań.
 
-**Nagrywanie.** Przy `RECORD=true` bot zapisuje znormalizowane dane, które widział, do `data/recordings/rec-*.jsonl.gz`. Format jest kompaktowy: numeryczne ID mintów i tylko zmienione snapshoty, co daje ~10–20 MB na dobę. Najstarsze pliki są kasowane powyżej `RECORD_MAX_MB`.
+**Nagrywanie.** Przy `RECORD=true` bot zapisuje znormalizowane dane, które widział, do `data/recordings/rec-*.jsonl.gz`. Format jest kompaktowy: numeryczne ID mintów i tylko zmienione snapshoty, co daje ~30–40 MB na dobę (zmierzone na żywo). Najstarsze pliki są kasowane powyżej `RECORD_MAX_MB`.
 
 **Replay** odtwarza nagrania przez ten sam silnik z wirtualnym zegarem:
 ```bash
@@ -186,7 +188,7 @@ npm run replay -- --set filter.minLiquidityUsd=25000 --set analyst.minScore=65
 npm run replay -- --grid filter.minLiquidityUsd=20000,40000,60000 --grid analyst.minScore=60,70
 npm run replay -- data/recordings/rec-2026-11-08-222238.jsonl.gz
 ```
-Wynik to statystyki każdego wariantu i tabela porównawcza (kill%, scored, trades, winrate, PnL po fee, max DD, kille per reguła). Ograniczenia, które warto znać:
+Wynik to statystyki każdego wariantu i tabela porównawcza (kill%, scored, trades, winrate, PnL po fee, max DD, kille per reguła). Na krótkich nagraniach (krótszych niż 20-minutowe okno obserwacji) dodaj `--set filter.watchWindowMin=2`, inaczej mało który token zdąży dostać werdykt. Ograniczenia, które warto znać:
 - Przy **luzowaniu** progów płynności/wolumenu część tokenów nie ma raportu RugCheck (bot na żywo go nie pobrał). Replay pokazuje je jako `no data`. Zaostrzanie progów działa w pełni.
 - Wypełnienia w replay są symulowane (constant‑product).
 - Pozycje otwarte tylko w replay mają rzadsze ceny niż pętla Risk na żywo (2,5 s), więc luki cenowe mogą wyjść większe.

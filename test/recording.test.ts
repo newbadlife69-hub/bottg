@@ -33,12 +33,15 @@ describe('recording codec', () => {
 
 const sample = path.join(__dirname, 'fixtures', 'replay-sample.jsonl.gz');
 describe.skipIf(!fs.existsSync(sample))('replay on a real recording', () => {
+  // the sample covers a few minutes, so use a short watch window to get verdicts
   it('is deterministic and settings change the outcome', async () => {
-    const a = await runReplay([sample], {});
-    const b = await runReplay([sample], {});
+    const base = { filter: { watchWindowMin: 2 } };
+    const a = await runReplay([sample], base);
+    const b = await runReplay([sample], base);
     expect(a.counters.scanned).toBeGreaterThan(10);
+    expect(a.counters.killed).toBeGreaterThan(10);
     expect(a.counters).toEqual(b.counters);
-    const loose = await runReplay([sample], { filter: { minLiquidityUsd: 1_000, minVolumeUsd: 1_000 } });
+    const loose = await runReplay([sample], { filter: { watchWindowMin: 2, minLiquidityUsd: 1_000, minVolumeUsd: 1_000 } });
     expect(loose.counters.killedByRule.liquidity).toBeLessThan(a.counters.killedByRule.liquidity);
   }, 60_000);
 });

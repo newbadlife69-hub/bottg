@@ -155,8 +155,16 @@ export async function buildServer(engine: Engine, auth: Auth) {
   engine.on('equity', (p) => broadcast('equity', p));
   engine.on('trade', () => broadcast('trade', {}));
   engine.on('reset', () => broadcast('snapshot', engine.snapshot(true)));
+  // 1 Hz incremental state; static/unchanged parts are left out to save mobile data
+  let lastTicker = '';
   const tickTimer = setInterval(() => {
-    if (engine.isDirty()) broadcast('tick', engine.snapshot(false));
+    if (!engine.isDirty() || !clients.size) return;
+    const snap: Record<string, unknown> = engine.snapshot(false);
+    delete snap.rules;
+    const t = JSON.stringify(snap.ticker);
+    if (t === lastTicker) delete snap.ticker;
+    else lastTicker = t;
+    broadcast('tick', snap);
   }, 1000);
   const pingTimer = setInterval(() => {
     // a named event (not a comment) so the client watchdog can see it

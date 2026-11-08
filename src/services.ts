@@ -48,7 +48,9 @@ export class LiveServices implements Services {
 
   async poolStats(pair: string): Promise<PoolStats | null> {
     try {
-      const [s] = await fetchPoolStats([pair]);
+      // optional input for the Analyst – never let it hold a decision for long
+      const timeout = new Promise<never>((_, rej) => setTimeout(() => rej(new Error('pool stats timeout')), 6000));
+      const [s] = await Promise.race([fetchPoolStats([pair]), timeout]);
       this.onHealth('geckoterminal', true);
       if (s) this.rec.write('pool', s);
       return s ?? null;

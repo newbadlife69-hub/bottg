@@ -24,6 +24,9 @@ export class LiveRunner {
   }
 
   start() {
+    // a new recording file starts with the watch list restored from SQLite, so replay sees it too
+    const restored = this.engine.watchTokens();
+    if (restored.length) this.rec.discover(restored);
     this.loop('sol', 60_000, () => this.refreshSol(), 0);
     this.loop('scout-gt', env.gtPollMs, () => this.scoutGecko(), 500);
     this.loop('scout-ds', env.dsDiscoveryPollMs, () => this.scoutDexScreener(), 1500);
